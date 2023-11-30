@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FormatSeeder::class);
         $this->call(TypeSeeder::class);
         $this->call(BookSeeder::class);
-        BookPurchaseDetail::factory(50)->create();
+        BookPurchaseDetail::factory(25)->create();
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

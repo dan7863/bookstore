@@ -18,6 +18,6 @@ class Subgender extends Model
     }
 
     public function description(){
-        return $this->morphOne('App\Models\Description', 'descripteable');
+        return $this->morphOne('App\Models\Description', 'describeable');
     }
 }

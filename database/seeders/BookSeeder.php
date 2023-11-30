@@ -23,7 +23,7 @@ class BookSeeder extends Seeder
         Storage::deleteDirectory('public/image_books');
         Storage::makeDirectory('public/image_books');
         
-        $books = Book::factory(100)->create();
+        $books = Book::factory(50)->create();
 
         foreach($books as $book){
 

@@ -10,7 +10,7 @@ class Description extends Model
     use HasFactory;
 
     //One to one polymorphic relation
-    public function descripteable(){
+    public function describeable(){
         return $this->morphTo();
     }
 }

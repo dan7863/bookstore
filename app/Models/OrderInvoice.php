@@ -10,6 +10,6 @@ class OrderInvoice extends Model
     use HasFactory;
 
     public function order_line(){
-        $this->belongsTo('App\Models\OrderLine');
+        return $this->belongsTo('App\Models\OrderLine');
     }
 }

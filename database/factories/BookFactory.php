@@ -20,7 +20,7 @@ class BookFactory extends Factory
      */
     public function definition(): array
     {
-        $title = $this->faker->unique()->word(20);
+        $title = $this->faker->unique()->sentence;
         $min_number = 50;
         $max_number = 2000;
         return [

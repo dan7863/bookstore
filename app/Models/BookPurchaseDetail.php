@@ -10,6 +10,6 @@ class BookPurchaseDetail extends Model
     use HasFactory;
 
     public function book(){
-        $this->belongsTo('App\Models\Book');
+        return $this->belongsTo('App\Models\Book');
     }
 }

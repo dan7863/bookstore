@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BooksStoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [BooksStoreController::class, 'index'])->name('books_store.index');
+
+Route::get('books/store/{book}', [BooksStoreController::class, 'show'])->name('books_store.show');
 
 Route::middleware([
     'auth:sanctum',

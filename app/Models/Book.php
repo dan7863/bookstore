@@ -12,13 +12,13 @@ class Book extends Model
     //One to one relation
 
     public function book_purchase_detail(){
-        $this->hasOne('App\Models\BookPurchaseDetail');
+        return $this->hasOne('App\Models\BookPurchaseDetail');
     }
 
     //One to many relation
 
     public function purchase_orders(){
-        $this->hasMany('App\Models\PurchaseOrder');
+        return $this->hasMany('App\Models\PurchaseOrder');
     }
     
     //One to one relation (reverse)
@@ -50,7 +50,7 @@ class Book extends Model
     }
 
     public function description(){
-        return $this->morphOne('App\Models\Description', 'descripteable');
+        return $this->morphOne('App\Models\Description', 'describeable');
     }
 
     //One to many polymorphic relation

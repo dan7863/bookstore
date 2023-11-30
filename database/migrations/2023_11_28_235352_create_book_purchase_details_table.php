@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('signatory');
             $table->unsignedDecimal('price', $precision = 10, $scale = 3);
+            $table->boolean('available_state');
             $table->unsignedBigInteger('book_id');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
