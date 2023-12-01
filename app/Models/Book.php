@@ -63,4 +63,28 @@ class Book extends Model
         return $this->morphOne('App\Models\ProgressState', 'progress_stateable');
     }
 
+    //Others
+
+    public function get_related_books_by_author(){
+        return Book::has('book_purchase_detail')
+        ->with('book_purchase_detail')
+        ->where('author_id', $this->author_id)
+        ->where('id', '!=', $this->id)
+        ->latest('id')
+        ->take(3)
+        ->get();
+    }
+
+    public function get_related_books_by_subgenders() {
+        return Book::whereHas('subgenders', function ($query) {
+                $query->whereIn('subgender_id', $this->subgenders->pluck('id'));
+            })
+            ->whereHas('book_purchase_detail')
+            ->where('id', '!=', $this->id)
+            ->with('book_purchase_detail')
+            ->latest('id')
+            ->take(3)
+            ->get();
+    }
+    
 }

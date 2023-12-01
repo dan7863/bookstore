@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BooksStoreController;
+use App\Http\Controllers\BookStoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +14,11 @@ use App\Http\Controllers\BooksStoreController;
 |
 */
 
-Route::get('/', [BooksStoreController::class, 'index'])->name('books_store.index');
+Route::get('/', [BookStoreController::class, 'index'])->name('books_store.index');
 
-Route::get('books/store/{book}', [BooksStoreController::class, 'show'])->name('books_store.show');
+Route::get('books/store/{book}', [BookStoreController::class, 'show'])->name('books_store.show');
+
+Route::get('subgender/{subgender}', [BookStoreController::class, 'subgender'])->name('books_store.subgender');
 
 Route::middleware([
     'auth:sanctum',

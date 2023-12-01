@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Subgender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class BooksStoreController extends Controller
+class BookStoreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class BooksStoreController extends Controller
     public function index()
     {
         $books = Book::has('book_purchase_detail')->with('book_purchase_detail')->get();
-
-        return view ('books.store.index', compact('books'));
+        $subgenders = Subgender::all(['name', 'id']);
+        return view ('books.store.index', ['books' => $books, 'subgenders' => $subgenders]);
     }
 
     /**
@@ -39,7 +40,9 @@ class BooksStoreController extends Controller
      */
     public function show(Book $book)
     {
-        return view('books.store.show', compact('book'));
+        $related_books_by_author = $book->get_related_books_by_author();
+        $related_books_by_subgenders = $book->get_related_books_by_subgenders();
+        return view('books.store.show', ['book' => $book, 'related_books_by_author' => $related_books_by_author, 'related_books_by_subgenders' => $related_books_by_subgenders]);
     }
 
     /**
@@ -64,5 +67,10 @@ class BooksStoreController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function subgender(Subgender $subgender){
+        $books = $subgender->get_related_books();
+        return view('books.store.subgender', compact('books', 'subgender'));
     }
 }
