@@ -22,7 +22,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th colspan = "2"></th>
+                        <th colspan = "2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +50,7 @@
     <script>
         $(document).ready(function(){
             $("#alert-info").fadeIn('slow');
-            $("#alert-info").delay(1000).fadeOut('slow');
+            $("#alert-info").delay(2000).fadeOut('slow');
         })
     </script>
 @endsection

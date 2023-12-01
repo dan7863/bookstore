@@ -36,7 +36,7 @@ class GenderController extends Controller
             'slug' => 'required|unique:genders'
         ]);
         $gender = Gender::create($request->all());
-        return redirect()->route('admin.genders.index')->with('info', 'Gender has been successfully created');
+        return redirect()->route('admin.genders.index')->with('info', $request->name . ' Gender has been successfully added.');
     }
 
     /**
@@ -67,7 +67,7 @@ class GenderController extends Controller
         
         $gender->update($request->all());
 
-        return redirect()->route('admin.genders.index')->with('info', $gender->name . ' Gender has been successfully updated');
+        return redirect()->route('admin.genders.index')->with('info', $gender->name . ' Gender has been successfully updated.');
     }
 
     /**
@@ -77,6 +77,6 @@ class GenderController extends Controller
     {
         $gender->delete();
 
-        return redirect()->route('admin.genders.index')->with('info', 'Previous Gender has been successfully updated');
+        return redirect()->route('admin.genders.index')->with('info', $gender->name . ' Gender has been successfully deleted.');
     }
 }

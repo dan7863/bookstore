@@ -9,6 +9,12 @@ class Subgender extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'slug', 'gender_id'];
+
+    public function getRouteKeyName(){
+        return "slug";
+    }
+
     public function gender(){
         return $this->belongsTo('App\Models\Gender');
     }
