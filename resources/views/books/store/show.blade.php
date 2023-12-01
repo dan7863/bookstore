@@ -49,7 +49,7 @@
                   </div>
                   <p class="mt-8 text-gray-500">{{\Illuminate\Support\Str::limit($book->description->description, 500, $end='...') }}</p>
 
-                  <div class = "mt-6 flex">
+                  <div class = "mt-6 flex-wrap">
                     @foreach($book->subgenders as $subgender)
                       <a href = "{{route('books_store.subgender', $subgender)}}">
                         <div class = "inline-block rounded-full bg-gray-200 hover:bg-gray-300 rounded-full p-2 cursor-pointer">
