@@ -51,9 +51,11 @@
 
                   <div class = "mt-6 flex">
                     @foreach($book->subgenders as $subgender)
+                      <a href = "{{route('books_store.subgender', $subgender)}}">
                         <div class = "inline-block rounded-full bg-gray-200 hover:bg-gray-300 rounded-full p-2 cursor-pointer">
-                          <a href = "#">{{$subgender->name}}</a>
+                          <span>{{$subgender->name}}</span>
                         </div>
+                      </a>
                     @endforeach
                   </div>
 
