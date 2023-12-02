@@ -18,6 +18,7 @@
         </div>
         <div class="card-body">
             <table class = "table table-striped">
+                <caption>Genders List</caption>
                 <thead>
                     <tr>
                         <th>ID</th>

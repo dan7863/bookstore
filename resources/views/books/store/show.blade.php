@@ -15,7 +15,7 @@
                     <dd class="mt-2 text-sm text-gray-500">187 Opinions</dd>
                   </div>
                   <div class="border-t border-gray-200 pt-4 flex flex-col items-center">
-                    <dt class="font-medium text-gray-900"><img src = "{{ url('storage/project_images/book.png')}}" class = "w-6"></dt>
+                    <dt class="font-medium text-gray-900"><img src = "{{ url('storage/project_images/book.png')}}" alt = "Ebook/AudioBook" class = "w-6"></dt>
                     <dd class="mt-2 text-sm text-gray-500">Ebook</dd>
                   </div>
                   <div class="border-t border-gray-200 pt-4 text-center">
@@ -44,7 +44,7 @@
                   <div class = "flex flex-row mt-12">
                     <h2 class = "text-2xl font-bold text-gray mr-6">About This Book</h2>
                     <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
-                        <img src="{{ url('storage/project_images/right_arrow.png')}}" class="w-4">
+                        <img src="{{ url('storage/project_images/right_arrow.png')}}" alt = "Right Arrow" class="w-4">
                     </div>
                   </div>
                   <p class="mt-8 text-gray-500">{{\Illuminate\Support\Str::limit($book->description->description, 500, $end='...') }}</p>
@@ -125,7 +125,7 @@
                     <div class = "flex flex-row mt-16 justify-center">
                       <h2 class = "text-2xl font-bold text-gray mr-6 mb-6">More About {{$book->author->name}}</h2>
                       <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
-                          <img src="{{ url('storage/project_images/right_arrow.png')}}" class="w-4">
+                          <img src="{{ url('storage/project_images/right_arrow.png')}}" alt = "Right Arrow" class="w-4">
                       </div>
                     </div>
                     
@@ -140,7 +140,7 @@
                     <div class = "flex flex-row mt-16 justify-center">
                       <h2 class = "text-2xl font-bold text-gray mr-6 mb-6">Similar Content</h2>
                       <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
-                          <img src="{{ url('storage/project_images/right_arrow.png')}}" class="w-4">
+                          <img src="{{ url('storage/project_images/right_arrow.png')}}" alt = "Right Arrow" class="w-4">
                       </div>
                     </div>
                     <div>

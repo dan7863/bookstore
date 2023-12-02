@@ -3,7 +3,7 @@
 @section('title', 'BookStore')
 
 @section('content_header')
-    <h1>Genders List</h1>
+    <h1>Publishers List</h1>
 @stop
 
 @section('content')
@@ -14,11 +14,11 @@
     @endif
     <div class = "card">
         <div class = "card-header">
-            <a class = "btn btn-secondary "href = "{{route('admin.genders.create')}}">Add Gender</a>
+            <a class = "btn btn-secondary "href = "{{route('admin.publishers.create')}}">Add Publisher</a>
         </div>
         <div class = "card-body">
             <table class = "table table-striped">
-                <caption>Genders List</caption>
+                <caption>Publishers List</caption>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -27,13 +27,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if(!empty($genders))
-                        @foreach($genders as $gender)
+                    @if(!empty($publishers))
+                        @foreach($publishers as $author)
                             <tr>
-                                <td>{{$gender->id}}</td>
-                                <td>{{$gender->name}}</td>
-                                <td width="10px"><a class = "btn btn-primary btn-sm" href = "{{route('admin.genders.edit', $gender)}}">Edit</a></td>
-                                <td width = "10px"><form action = "{{route('admin.genders.destroy', $gender)}}" method = "POST">
+                                <td>{{$author->id}}</td>
+                                <td>{{$author->name}}</td>
+                                <td width="10px"><a class = "btn btn-primary btn-sm" href = "{{route('admin.publishers.edit', $author)}}">Edit</a></td>
+                                <td width = "10px"><form action = "{{route('admin.publishers.destroy', $author)}}" method = "POST">
                                     @csrf
                                     @method('delete')
                                     <button type = "submit" class = "btn btn-danger btn-sm">Delete</button>

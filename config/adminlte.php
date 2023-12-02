@@ -330,6 +330,18 @@ return [
             'active' => ['admin/subgenders*']
         ],
         [
+            'text' => 'Authors',
+            'route'  => 'admin.authors.index',
+            'icon' => 'far fa-fw fa-bookmark',
+            'active' => ['admin/authors*']
+        ],
+        [
+            'text' => 'Publishers',
+            'route'  => 'admin.publishers.index',
+            'icon' => 'far fa-fw fa-bookmark',
+            'active' => ['admin/publishers*']
+        ],
+        [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
