@@ -35,7 +35,7 @@ class GenderController extends Controller
             'name' => 'required',
             'slug' => 'required|unique:genders'
         ]);
-        $gender = Gender::create($request->all());
+        Gender::create($request->all());
         return redirect()->route('admin.genders.index')->with('info', $request->name . ' Gender has been successfully added.');
     }
 
