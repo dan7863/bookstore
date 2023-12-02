@@ -20,7 +20,7 @@ class BooksIndex extends Component
 
     public function render()
     {
-        $books = Book::where('user_id', auth()->user()->id)->where('title', 'LIKE', '%'.$this->search.'%')->latest()->paginate(10);
+        $books = Book::where('user_id', auth()->user()->id)->where('title', 'LIKE', '%'.$this->search.'%')->whereDoesntHave('book_purchase_detail')->latest()->paginate(10);
         return view('livewire.admin.books-index', compact('books'));
     }
 }
