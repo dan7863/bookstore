@@ -367,21 +367,11 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
+        ['header' => 'PERSONAL OPTIONS'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
+            'text'       => 'Your Books List',
+            'route'        => 'admin.books.index',
+            'icon' => 'fas fa-w fa-book'
         ],
     ],
 
@@ -537,5 +527,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];
