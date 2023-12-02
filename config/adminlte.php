@@ -330,6 +330,12 @@ return [
             'active' => ['admin/subgenders*']
         ],
         [
+            'text' => 'Authors',
+            'route'  => 'admin.authors.index',
+            'icon' => 'far fa-fw fa-bookmark',
+            'active' => ['admin/authors*']
+        ],
+        [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
