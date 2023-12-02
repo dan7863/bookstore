@@ -36,11 +36,11 @@
   
           <select class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" onchange="window.location.href=this.options[this.selectedIndex].value;">
             <option value="">Subgender</option>
-                @if(!empty($subgenders))
+                {{-- @if(!empty($subgenders))
                     @foreach($subgenders as $subgender)
                         <option value="{{route('books_store.subgender', $subgender)}}">{{$subgender->name}}</option>
                     @endforeach
-                @endif
+                @endif --}}
           </select>
 
           <select class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
