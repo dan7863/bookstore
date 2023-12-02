@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\GenderController;
 use App\Http\Controllers\Admin\SubgenderController;
@@ -14,5 +15,6 @@ Route::resource('subgenders', SubgenderController::class)->names('admin.subgende
 
 Route::resource('books', BookController::class)->names('admin.books');
 
+Route::resource('authors', AuthorController::class)->names('admin.authors');
 
 ?>

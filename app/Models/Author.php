@@ -9,6 +9,12 @@ class Author extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'slug', 'gender_id'];
+
+    public function getRouteKeyName(){
+        return "slug";
+    }
+
     public function books(){
         return $this->hasMany('App\Models\Book');
     }
