@@ -36,7 +36,8 @@ class AuthorController extends Controller
             'slug' => 'required|unique:authors'
         ]);
         Author::create($request->all());
-        return redirect()->route('admin.authors.index')->with('info', $request->name . ' Author has been successfully added.');
+        return redirect()->route('admin.authors.index')
+        ->with('info', $request->name . ' Author has been successfully added.');
     }
 
     /**
@@ -67,7 +68,8 @@ class AuthorController extends Controller
         
         $author->update($request->all());
 
-        return redirect()->route('admin.authors.index')->with('info', $author->name . ' Author has been successfully updated.');
+        return redirect()->route('admin.authors.index')
+        ->with('info', $author->name . ' Author has been successfully updated.');
     }
 
     /**
@@ -77,6 +79,7 @@ class AuthorController extends Controller
     {
         $author->delete();
 
-        return redirect()->route('admin.authors.index')->with('info', $author->name . ' Author has been successfully deleted.');
+        return redirect()->route('admin.authors.index')
+        ->with('info', $author->name . ' Author has been successfully deleted.');
     }
 }

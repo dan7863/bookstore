@@ -36,7 +36,8 @@ class PublisherController extends Controller
             'slug' => 'required|unique:publishers'
         ]);
         Publisher::create($request->all());
-        return redirect()->route('admin.publishers.index')->with('info', $request->name . ' Publisher has been successfully added.');
+        return redirect()->route('admin.publishers.index')
+        ->with('info', $request->name . ' Publisher has been successfully added.');
     }
 
     /**
@@ -67,7 +68,8 @@ class PublisherController extends Controller
         
         $publisher->update($request->all());
 
-        return redirect()->route('admin.publishers.index')->with('info', $publisher->name . ' Publisher has been successfully updated.');
+        return redirect()->route('admin.publishers.index')
+        ->with('info', $publisher->name . ' Publisher has been successfully updated.');
     }
 
     /**
@@ -77,6 +79,7 @@ class PublisherController extends Controller
     {
         $publisher->delete();
 
-        return redirect()->route('admin.publishers.index')->with('info', $publisher->name . ' Publisher has been successfully deleted.');
+        return redirect()->route('admin.publishers.index')
+        ->with('info', $publisher->name . ' Publisher has been successfully deleted.');
     }
 }

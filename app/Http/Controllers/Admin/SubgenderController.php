@@ -40,7 +40,8 @@ class SubgenderController extends Controller
 
        Subgender::create($request->all());
 
-       return redirect()->route('admin.subgenders.index')->with('info', $request->name . ' Subgender has been successfully added.');
+       return redirect()->route('admin.subgenders.index')
+       ->with('info', $request->name . ' Subgender has been successfully added.');
     }
 
     /**
@@ -73,7 +74,8 @@ class SubgenderController extends Controller
 
        $subgender->update($request->all());
 
-       return redirect()->route('admin.subgenders.index', $subgender)->with('info', $subgender->name . ' Subgender has been successfully updated.');
+       return redirect()->route('admin.subgenders.index', $subgender)
+       ->with('info', $subgender->name . ' Subgender has been successfully updated.');
     }
 
     /**
@@ -83,6 +85,7 @@ class SubgenderController extends Controller
     {
         $subgender->delete();
 
-        return redirect()->route('admin.subgenders.index')->with('info', $subgender->name . ' Subgender has been successfully deleted.');
+        return redirect()->route('admin.subgenders.index')
+        ->with('info', $subgender->name . ' Subgender has been successfully deleted.');
     }
 }
