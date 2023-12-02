@@ -3,7 +3,7 @@
 @section('title', 'BookStore')
 
 @section('content_header')
-    <h1>Show Detail from Author</h1>
+    <h1>Show Detail from Publisher</h1>
 @stop
 
 @section('content')

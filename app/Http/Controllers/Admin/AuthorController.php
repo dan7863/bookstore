@@ -35,7 +35,7 @@ class AuthorController extends Controller
             'name' => 'required',
             'slug' => 'required|unique:authors'
         ]);
-        $author = Author::create($request->all());
+        Author::create($request->all());
         return redirect()->route('admin.authors.index')->with('info', $request->name . ' Author has been successfully added.');
     }
 
