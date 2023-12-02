@@ -61,6 +61,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return redirect()->route('admin.books.index')
+        ->with('info', $book->title . ' Book has been successfully deleted.');
     }
 }

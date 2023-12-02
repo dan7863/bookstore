@@ -320,70 +320,48 @@ return [
         [
             'text' => 'Genders',
             'route'  => 'admin.genders.index',
-            'icon' => 'fab fa-fw fa-buffer',
+            'icon' => 'fas fa-fw fa-tags',
             'active' => ['admin/genders*']
         ],
         [
             'text' => 'Subgenders',
-            'route'  => 'admin.subgenders.index',
-            'icon' => 'far fa-fw fa-bookmark',
+            'route' => 'admin.subgenders.index',
+            'icon' => 'fab fa-fw fa-buffer',
             'active' => ['admin/subgenders*']
         ],
         [
             'text' => 'Authors',
-            'route'  => 'admin.authors.index',
-            'icon' => 'far fa-fw fa-bookmark',
+            'route' => 'admin.authors.index',
+            'icon' => 'fas fa-fw fa-pen',
             'active' => ['admin/authors*']
         ],
         [
             'text' => 'Publishers',
-            'route'  => 'admin.publishers.index',
-            'icon' => 'far fa-fw fa-bookmark',
-            'active' => ['admin/publishers*']
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
+            'route' => 'admin.publishers.index',
+            'icon' => 'fas fa-fw fa-building',
+            'active' => ['admin/publishers*'],
         ],
         ['header' => 'PERSONAL OPTIONS'],
         [
             'text'       => 'Your Books List',
-            'route'        => 'admin.books.index',
-            'icon' => 'fas fa-w fa-book'
+            'icon' => 'fas fa-w fa-book',
+            'submenu' => [
+                [
+                    'text' => 'Loads',
+                    'icon' => 'fas fa-w fa-upload',
+                    'route' => 'admin.books.index',
+                ],
+                [
+                    'text' => 'Selling',
+                    'icon' => 'fas fa-fw fa-dollar-sign',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Purchases',
+                    'icon' => 'fas fa-w fa-shopping-cart',
+                    'url' => '#'
+                ],
+            ]
         ],
     ],
 
