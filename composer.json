@@ -9,12 +9,14 @@
         "doctrine/dbal": "^3.7",
         "guzzlehttp/guzzle": "^7.2",
         "jeroennoten/laravel-adminlte": "^3.9",
+        "kiwilan/php-ebook": "^2.2",
         "laravel/framework": "^10.10",
         "laravel/jetstream": "^4.1",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laravelcollective/html": "^6.4",
-        "livewire/livewire": "^3.0"
+        "livewire/livewire": "^3.0",
+        "lywzx/php-epub": "^0.1.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

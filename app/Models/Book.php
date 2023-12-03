@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kiwilan\Ebook\Ebook;
 
 class Book extends Model
 {
@@ -85,6 +86,25 @@ class Book extends Model
             ->latest('id')
             ->take(3)
             ->get();
+    }
+
+    public function process_file($url){
+        
+        $is_valid = Ebook::isValid($url);
+        if($is_valid){
+            $ebook = Ebook::read($url); 
+            return [
+                'path' => $ebook->getPath(),
+                'title' => $ebook->getTitle(),
+                'slug' => $ebook->getMetaTitle()->getSlug(),
+                'author' => $ebook->getAuthorMain(),
+                'description' => $ebook->getDescription(),
+                'publisher' => $ebook->getPublisher(),
+                'page_count' => $ebook->getPagesCount(),
+                'language' => $ebook->getLanguage(),
+                'tags' => $ebook->getTags()
+            ];
+        }
     }
     
 }

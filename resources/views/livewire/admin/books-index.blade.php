@@ -1,7 +1,6 @@
 <div class = "card">
     <div class="card-header">
-        <p>Book Title</p>
-        <input wire:model.live = "search" type="text" class="form-control" placeholder = "Type Book Title">
+        <input wire:model.live = "search" type="text" class="form-control mt-2" placeholder = "Type Book Title">
     </div>
     @if($books->count())
     <div class="card-body">

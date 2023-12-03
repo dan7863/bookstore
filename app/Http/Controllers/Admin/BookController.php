@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
+
 class BookController extends Controller
 {
     /**
@@ -21,6 +22,7 @@ class BookController extends Controller
      */
     public function create()
     {
+     
         return view('admin.books.create');
     }
 
@@ -64,5 +66,15 @@ class BookController extends Controller
         $book->delete();
         return redirect()->route('admin.books.index')
         ->with('info', $book->title . ' Book has been successfully deleted.');
+    }
+
+    public function upload_file(Request $request){
+        $file = $request->file('file');
+        $path = storage_path('app/public/temporal'); // Set your desired folder name
+        !file_exists($path) ?  mkdir($path, 0755, true) : '';
+        $current_path = $file->storeAs('temporal', $file->getClientOriginalName(), 'public');
+        $book = new Book;
+        $ebook = $book->process_file(public_path('/storage/'.$current_path));
+        return view('admin.books.create', compact('ebook'));
     }
 }

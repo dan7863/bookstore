@@ -3,7 +3,14 @@
 @section('title', 'BookStore')
 
 @section('content_header')
-    <h1>Loaded Books</h1>
+    <div class = "row">
+        <div class = "col-sm-6">
+            <h1>Loaded Books</h1>
+        </div>
+        <div class = "col-sm-6 load-book text-right mt-2">
+            <a href = "{{route('admin.books.create')}}"class = "btn btn-secondary">Load Book</a>
+        </div>
+    </div>
 @stop
 
 @section('content')
@@ -14,6 +21,7 @@
     @endif
     @livewire('admin.books-index')
 @stop
+
 
 @section('js')
     <script>
