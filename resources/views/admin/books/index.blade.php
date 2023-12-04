@@ -8,7 +8,7 @@
             <h1>Loaded Books</h1>
         </div>
         <div class = "col-sm-6 load-book text-right mt-2">
-            <a href = "{{route('admin.books.create')}}"class = "btn btn-secondary">Load Book</a>
+            <a data-toggle="modal" data-target="#modal" class = "btn btn-secondary">Load Book</a>
         </div>
     </div>
 @stop
@@ -20,12 +20,37 @@
         </div>
     @endif
     @livewire('admin.books-index')
+    <div class="modal" id = "modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Load Book</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action = "{{route('admin.books.upload.file')}}" method = "POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <input type = "file" name = "file">
+                    </div>
+                    <div class="modal-footer">
+                        <button type = "submit" class = "btn btn-primary"><i class = "fas fa-w fa-upload"></i> Upload</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa-solid fa-xmark"></i> Close</button>
+                    </div>
+                </form>
+            </div>   
+        </div>
+    </div>
 @stop
 
 
 @section('js')
     <script>
-         $(".dropdown-menu").hide();
+        $("#alert-info").fadeIn('slow');
+        $("#alert-info").delay(2000).fadeOut('slow');
+        $(".dropdown-menu").hide();
+        
          $(document).on("click", ".icon-menu", function () {
             $(".dropdown-menu").hide();
             $("#dropdown-menu-" + $(this).attr('book-id')).toggle();

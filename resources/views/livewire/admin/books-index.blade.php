@@ -9,7 +9,7 @@
             @foreach($books as $book)
             <div class="col-sm-4 mt-4">     
                 <div class="container mt-5">
-                    <img class = "rounded w-100 object-fit object-cover" style = "height: 18rem;" src="{{ url('storage/' . $book->image->url) }}" alt="Front of men&#039;s Basic Tee in black." role="button">
+                    <img class = "rounded w-100 object-fit object-cover" style = "height: 18rem;" src="{{ isset($book->image->url) ? url('storage/' . $book->image->url) : null }}" alt="{{$book->title}} role="button">
                 </div>
                 <div class = "container mt-2">
                     <div style = "display: flex;">
