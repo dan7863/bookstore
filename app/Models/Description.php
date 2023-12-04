@@ -9,6 +9,8 @@ class Description extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     //One to one polymorphic relation
     public function describeable(){
         return $this->morphTo();

@@ -20,4 +20,6 @@ Route::resource('authors', AuthorController::class)->names('admin.authors');
 
 Route::resource('publishers', PublisherController::class)->names('admin.publishers');
 
+Route::post('/upload', [BookController::class, 'upload_file'])->name('admin.books.upload.file');
+
 ?>

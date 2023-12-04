@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             //13 digits and 4 dash to separate by 5 groups
-            $table->char('isbn', 17)->unique();
+            $table->char('isbn', 17)->unique()->nullable();
             $table->unsignedInteger('page_count');
+            $table->string('url');
             $table->unsignedBigInteger('publisher_id')->nullable();
             $table->unsignedBigInteger('author_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();

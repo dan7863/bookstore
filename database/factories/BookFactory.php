@@ -28,6 +28,7 @@ class BookFactory extends Factory
             'slug' => Str::slug($title),
             'isbn' => $this->faker->isbn13('-'),
             'page_count' => $this->faker->numberBetween($min_number, $max_number),
+            'url' => $this->faker->url(),
             'publisher_id' => Publisher::all()->random()->id,
             'author_id' => Author::all()->random()->id,
             'user_id' => User::all()->random()->id
