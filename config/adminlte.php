@@ -359,7 +359,7 @@ return [
                 [
                     'text' => 'Selling',
                     'icon' => 'fas fa-fw fa-dollar-sign',
-                    'url' => '#',
+                    'route' => 'admin.book-purchase-details.index',
                 ],
             ]
         ],

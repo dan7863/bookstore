@@ -19,7 +19,7 @@
             <strong>{{session('info')}}</strong>
         </div>
     @endif
-    @livewire('admin.books-index', ['type' => 'book'])
+    @livewire('admin.books-index', ['type' => 'book-purchase-details'])
     <div class="modal" id = "modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

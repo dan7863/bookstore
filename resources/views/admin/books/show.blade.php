@@ -56,6 +56,24 @@
                     @endforeach
                 @endif
             </div>
+
+            @if(isset($book->book_purchase_detail))
+                <div class="form-group">
+                    <label>Signatory</label>
+                    <p>{{$book->book_purchase_detail->signatory}}</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Price</label>
+                    <p>@money($book->book_purchase_detail->price)</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Available State</label>
+                    <p>@available_state($book->book_purchase_detail->available_state)</p>
+                </div>
+            @endif
+          
         </div>
     </div>
 @stop

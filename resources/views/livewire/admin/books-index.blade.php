@@ -31,7 +31,8 @@
                             id = "dropdown-menu-{{$book->id}}" aria-labelledby="icon-menu"
                             style = "margin-top: -2.2rem; margin-left: -10rem;">
                                 <a class="dropdown-item"><i class="fas fa-w fa-book-open"></i> Read</a>
-                                <a class="dropdown-item" href = "{{route('admin.books.show', $book)}}">
+                                <a class="dropdown-item"
+                                    href = "{{route('admin.books.show', $book)}}">
                                     <i class="fas fa-w fa-info-circle"></i> About This
                                 </a>
                                 <a class="dropdown-item"><i class="fas fa-w fa-check"></i> Marked as Finished</a>

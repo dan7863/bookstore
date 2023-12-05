@@ -34,7 +34,7 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $book_service = new BookService();
-        $book_service->create_book($request);
+        $book_service->createBook($request);
         return redirect()->route('admin.books.index')
         ->with('info', $request->title . ' Book has been successfully loaded.');
     }
@@ -61,9 +61,15 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $request->merge(['book_id' => $book->id]);
-        BookPurchaseDetail::create($request->all());
-        return redirect()->route('admin.books.index')
-        ->with('info', $book->title . ' Book has been successfully placed for sale.');
+        $book_purchase_detail = BookPurchaseDetail::where('book_id', $book->id)->first();
+        if($book_purchase_detail){
+            $book_purchase_detail->update($request->all());
+        }
+        else{
+            BookPurchaseDetail::create($request->all());
+        }
+        return redirect()->route('admin.book-purchase-details.index')
+        ->with('info', $book->title . ' Book Purchase Detail has been successfully updated.');
     }
 
     /**
@@ -82,7 +88,7 @@ class BookController extends Controller
         !file_exists($path) ?  mkdir($path, 0755, true) : '';
         $current_path = $file->storeAs('temporal', $file->getClientOriginalName(), 'public');
         $book_service = new BookService;
-        $ebook = $book_service->process_file(public_path('/storage/'.$current_path));
+        $ebook = $book_service->processFile(public_path('/storage/'.$current_path));
         return view('admin.books.create', compact('ebook'));
     }
 }

@@ -23,7 +23,8 @@
 
                 <div class="form-group">
                     {!! Form::label('slug', 'Slug') !!}
-                    {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Type Gender Slug', 'readonly']) !!}
+                    {!! Form::text('slug', null,
+                    ['class' => 'form-control', 'placeholder' => 'Type Gender Slug', 'readonly']) !!}
 
                     @error('slug')
                         <span class = "text-danger">{{$message}}</span>
@@ -48,5 +49,6 @@
                 });
         });
     </script>
-@endsection 
+@endsection
+
 

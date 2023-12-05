@@ -13,7 +13,7 @@
 
                 <div class="form-group">
                     {!! Form::label('signatory', 'Signatory') !!}
-                    {!! Form::text('signatory', null,
+                    {!! Form::text('signatory', $book->book_purchase_detail->signatory ?? null,
                     ['class' => 'form-control', 'placeholder' => 'Type Book signatory']) !!}
 
                     @error('signatory')
@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                     {!! Form::label('price', 'Price') !!}
-                    {!! Form::number('price', null,
+                    {!! Form::number('price', $book->book_purchase_detail->price ?? null,
                     ['class' => 'form-control', 'placeholder' => 'Type Book Price']) !!}
 
                     @error('price')
@@ -34,12 +34,14 @@
                 <div class="form-group">
                     <p class = "font-weight-bold">State</p>
                         <label>
-                            {!! Form::radio('available_state', 1, true) !!}
+                            {!! Form::radio('available_state', 1,
+                            (optional($book->book_purchase_detail)->signatory ? true : false) ?? true) !!}
                             Available
                         </label>
 
                         <label>
-                            {!! Form::radio('available_state', 0) !!}
+                            {!! Form::radio('available_state', 0,
+                            (optional($book->book_purchase_detail)->signatory ? false : true) ?? false) !!}
                             Not Available
                         </label>
 

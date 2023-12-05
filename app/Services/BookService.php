@@ -18,10 +18,10 @@ use Kiwilan\Ebook\Ebook;
 
 class BookService
 {
-    public function process_file($url){
+    public function processFile($url){
         $is_valid = Ebook::isValid($url);
         if($is_valid){
-            $ebook = Ebook::read($url); 
+            $ebook = Ebook::read($url);
             if($ebook->isArchive()){
                 return [
                     'path' => $ebook->getPath(),
@@ -43,7 +43,7 @@ class BookService
         return 'invalid';
     }
 
-    public function save_image($image){
+    public function saveImage($image){
         $image = base64_decode($image);
         $file_name =  hash('sha256', uniqid('imagen_', true)) . '.jpeg';
         $images_path = storage_path('app/public/image_books');
@@ -56,26 +56,26 @@ class BookService
     }
 
     //Stores books with its respective relations
-    public function create_book(Request $request)
+    public function createBook(Request $request)
     {
         $book = Book::create([
             'title' => $request->title,
             'slug' => $request->slug,
             'isbn' => $request->isbn,
             'page_count' => $request->page_count,
-            'publisher_id' => $this->get_relation_id($request->publisher, 'publisher'),
-            'author_id' =>  $this->get_relation_id($request->author, 'author'),
-            'language_id' =>  $this->get_relation_id($request->language, 'language'),
+            'publisher_id' => $this->getRelationId($request->publisher, 'publisher'),
+            'author_id' =>  $this->getRelationId($request->author, 'author'),
+            'language_id' =>  $this->getRelationId($request->language, 'language'),
             'user_id' => auth()->id()
         ]);
 
-        $this->create_image($request->image, $book->id);
-        $this->create_description($request->description, $book->id);
-        $subgenders = $this->get_subgenders_ids($request->subgenders);
+        $this->createImage($request->image, $book->id);
+        $this->createDescription($request->description, $book->id);
+        $subgenders = $this->getSubgendersId($request->subgenders);
         if(!empty($subgenders)){
             $book->subgenders()->attach($subgenders);
         }
-        $type = $this->get_type_id($request->format);
+        $type = $this->getTypeId($request->format);
         if(!empty($type)){
             $book->types()->attach(
                 [$type->id => [
@@ -83,32 +83,34 @@ class BookService
                 ]
             );
         }
-        $this->create_progress_state($book->id);
+        $this->createProgressState($book->id);
 
     }
 
 
-    public function get_relation_id($name, $model){
+    public function getRelationId($name, $model){
         if(!empty($name)){
             $name = ucwords($name);
             switch($model){
-                case($model == 'publisher'):
+                case $model == 'publisher':
                     $item = Publisher::firstOrCreate(
-                        ['name' => $name, 
+                        ['name' => $name,
                         'slug' => Str::slug($name)
                     ]);
                 break;
-                case($model == 'author'):
+                case $model == 'author':
                     $item = Author::firstOrCreate(
-                        ['name' => $name, 
+                        ['name' => $name,
                         'slug' => Str::slug($name)
                     ]);
                 break;
-                case($model == 'language'):
+                case $model == 'language':
                     $item = Language::firstOrCreate(
                         ['language' => $name
                     ]);
                 break;
+                default:
+                    throw new \InvalidArgumentException('Invalid Model: ' . $model);
             }
             return $item->id;
         }
@@ -116,7 +118,7 @@ class BookService
         return null;
     }
 
-    public function create_description($description, $book_id){
+    public function createDescription($description, $book_id){
         if(!empty($description)){
             Description::create([
                 'description' => $description,
@@ -126,8 +128,8 @@ class BookService
         }
     }
 
-    public function create_image($image, $book_id){
-        $image_url = $this->save_image($image);
+    public function createImage($image, $book_id){
+        $image_url = $this->saveImage($image);
 
         Image::create([
             'url' => $image_url,
@@ -136,21 +138,21 @@ class BookService
         ]);
     }
 
-    public function create_progress_state($book_id){
+    public function createProgressState($book_id){
         ProgressState::create([
             'progress_stateable_id' => $book_id,
             'progress_stateable_type' => Book::class
         ]);
     }
 
-    public function get_subgenders_ids($subgenders){
+    public function getSubgendersId($subgenders){
         $subgenders_ids = [];
         if(!empty($subgenders)){
             $subgenders = explode('/', $subgenders);
             foreach($subgenders as $subgender){
                 $upper_subgender = ucwords($subgender);
                 $subgender = Subgender::firstOrCreate(
-                    ['name' => $upper_subgender, 
+                    ['name' => $upper_subgender,
                     'slug' => Str::slug($upper_subgender)
                 ]);
                 $subgenders_ids[] = $subgender->id;
@@ -159,7 +161,7 @@ class BookService
         return $subgenders_ids;
     }
 
-    public function get_type_id($format){
+    public function getTypeId($format){
         $type = [];
         if(!empty($format)){
             $upper_format = ucwords($format);
@@ -170,9 +172,4 @@ class BookService
         }
         return $type;
     }
-   
-   
 }
-
-
-?>

@@ -98,9 +98,4 @@ class Book extends Model
             ->get();
     }
 
-   
-
-   
-
-
 }
