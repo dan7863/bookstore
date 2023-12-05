@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('book_purchase_details', function (Blueprint $table) {
             $table->id();
             $table->string('signatory');
-            $table->unsignedDecimal('price', $precision = 10, $scale = 3);
+            $table->unsignedDecimal('price', 10, 3);
             $table->boolean('available_state');
             $table->unsignedBigInteger('book_id');
-            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('book_id')->references('id')
+            ->on('books')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -39,32 +39,41 @@ class BookSeeder extends Seeder
 
             $states = ['Not Started', 'Ongoing', 'Completed'];
             $state = $faker->randomElement($states);
-            $progress_state_instance = ProgressState::create([
+            ProgressState::create([
                 'progress_stateable_id' => $book->id,
                 'progress_stateable_type' => Book::class,
                 'reading_state' => $state,
-                'page_count' => ($state == 'Not Started' ? 0 : ($state == 'OnGoing' ? $faker->numberBetween(0, $book->page_count) : $book->page_count)),
+                'page_count' =>
+                ($state == 'Not Started' ? 0 : (
+                    $state == 'OnGoing' ? 
+                    $faker->numberBetween(0, $book->page_count) : $book->page_count
+                )
+                ),
             ]);
 
 
             $book->subgenders()->attach([
-                rand(1, 4),
+                random_int(1, 4),
             ]);
 
-            $book_id_first_type = Type::find(rand(1, 3))->format;
+            $book_id_first_type = Type::find(random_int(1, 3))->format;
             $fake_url_first_type = $faker->url();
             $dot_position_first_type = strrpos($fake_url_first_type, '.');
 
-            $book_id_second_type = Type::find(rand(1, 3))->format;
+            $book_id_second_type = Type::find(random_int(1, 3))->format;
             $fake_url_second_type = $faker->url();
             $dot_position_second_type = strrpos($fake_url_second_type, '.');
 
             $book->types()->attach(
                 $book_id_first_type->id,
-                ['url' =>  substr_replace($fake_url_first_type, $book_id_first_type->format, $dot_position_first_type)]);
+                ['url' =>  substr_replace($fake_url_first_type, 
+                $book_id_first_type->format, 
+                $dot_position_first_type)]);
             $book->types()->attach(
                 $book_id_second_type->id,
-                ['url' => substr_replace($fake_url_second_type, $book_id_second_type->format, $dot_position_second_type)]);
+                ['url' => substr_replace($fake_url_second_type, 
+                $book_id_second_type->format, 
+                $dot_position_second_type)]);
         }
     }
 }

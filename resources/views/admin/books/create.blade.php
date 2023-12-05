@@ -11,7 +11,8 @@
         
         <div class="card-body">
             <div class = "text-center col-sm-4 mr-auto ml-auto" style = "margin-bottom: 4%;">
-                <img class = "rounded w-100 object-fit object-cover" src="data:image/png;base64,{{$ebook['cover']}}" alt = "{{$ebook['title']}}">
+                <img class = "rounded w-100 object-fit object-cover"
+                src="data:image/png;base64,{{$ebook['cover']}}" alt = "{{$ebook['title']}}">
             </div>
             
             {!! Form::open(['route' => 'admin.books.store']) !!}
@@ -45,7 +46,8 @@
 
                 <div class="form-group">
                     {!! Form::label('description', 'Description') !!}
-                    {!! Form::textarea('description', $ebook['description'] ?? null, ['class' => 'form-control', 'readonly']) !!}
+                    {!! Form::textarea('description', $ebook['description'] ?? null,
+                    ['class' => 'form-control', 'readonly']) !!}
 
                     @error('description')
                         <span class = "text-danger">{{$message}}</span>
@@ -63,7 +65,8 @@
 
                 <div class="form-group">
                     {!! Form::label('page_count', 'Page Count') !!}
-                    {!! Form::text('page_count', $ebook['page_count'] ?? null, ['class' => 'form-control', 'readonly']) !!}
+                    {!! Form::text('page_count', $ebook['page_count'] ?? null,
+                    ['class' => 'form-control', 'readonly']) !!}
 
                     @error('page_count')
                         <span class = "text-danger">{{$message}}</span>
@@ -73,7 +76,8 @@
                 <div class = "form-group">
                     {!! Form::label('subgender', 'Subgenders') !!}
                     @include('partials.books.book-subgenders', ['subgenders' => $ebook['tags']])
-                    {!! Form::text('subgenders', implode("/", $ebook['tags']) ?? null, ['class' => 'form-control d-none', 'readonly']) !!}
+                    {!! Form::text('subgenders', implode("/", $ebook['tags']) ?? null,
+                    ['class' => 'form-control d-none', 'readonly']) !!}
                    
                 </div>
                
@@ -89,7 +93,8 @@
 
                 <div class="form-group">
                     {!! Form::label('publisher', 'Publisher') !!}
-                    {!! Form::text('publisher', $ebook['publisher'] ?? null, ['class' => 'form-control', 'readonly']) !!}
+                    {!! Form::text('publisher', $ebook['publisher'] ?? null,
+                    ['class' => 'form-control', 'readonly']) !!}
 
                     @error('publisher')
                         <span class = "text-danger">{{$message}}</span>
@@ -97,16 +102,17 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('type', 'Type') !!}
-                    {!! Form::text('type', $ebook['extension'] ?? null, ['class' => 'form-control', 'readonly']) !!}
+                    {!! Form::label('format', 'Format') !!}
+                    {!! Form::text('format', $ebook['extension'] ?? null, ['class' => 'form-control', 'readonly']) !!}
 
-                    @error('type')
+                    @error('format')
                         <span class = "text-danger">{{$message}}</span>
                     @enderror
                 </div>
 
                 <div class="form-group">
-                    {!! Form::text('file_name', $ebook['file_name'] ?? null, ['class' => 'form-control d-none', 'readonly']) !!}
+                    {!! Form::text('file_name', $ebook['file_name'] ?? null,
+                    ['class' => 'form-control d-none', 'readonly']) !!}
 
                     @error('file_name')
                         <span class = "text-danger">{{$message}}</span>

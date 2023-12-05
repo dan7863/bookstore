@@ -23,7 +23,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Gender to which it belongs</th>
+                        <th>Refered Gender</th>
                         <th colspan = "2">Actions</th>
                     </tr>
                 </thead>
@@ -33,7 +33,7 @@
                             <tr>
                                 <td>{{$subgender->id}}</td>
                                 <td>{{$subgender->name}}</td>
-                                <td>{{$subgender->gender->name}}</td>
+                                <td>{{$subgender->gender->name ?? null}}</td>
                                 <td width = "10px"><a class = "btn btn-primary btn-sm" href = "{{route('admin.subgenders.edit', $subgender)}}">Edit</a></td>
                                 <td width = "10px">
                                     <form action = "{{route('admin.subgenders.destroy', $subgender)}}" method = "POST">

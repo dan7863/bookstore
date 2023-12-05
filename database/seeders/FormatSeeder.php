@@ -19,6 +19,5 @@ class FormatSeeder extends Seeder
                 'format' => $format
             ]);
         }
-       
     }
 }

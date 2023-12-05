@@ -3,11 +3,56 @@
 @section('title', 'BookStore')
 
 @section('content_header')
-    <h1>Show Details for Book</h1>
+    <h1>Book Purchase Detail</h1>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <div class="card">
+        <div class="card-body">
+            {!! Form::open(['route' => ['admin.books.update', $book], 'method' => 'put']) !!}
+
+                <div class="form-group">
+                    {!! Form::label('signatory', 'Signatory') !!}
+                    {!! Form::text('signatory', null,
+                    ['class' => 'form-control', 'placeholder' => 'Type Book signatory']) !!}
+
+                    @error('signatory')
+                        <span class = "text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('price', 'Price') !!}
+                    {!! Form::number('price', null,
+                    ['class' => 'form-control', 'placeholder' => 'Type Book Price']) !!}
+
+                    @error('price')
+                        <span class = "text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <p class = "font-weight-bold">State</p>
+                        <label>
+                            {!! Form::radio('available_state', 1, true) !!}
+                            Available
+                        </label>
+
+                        <label>
+                            {!! Form::radio('available_state', 0) !!}
+                            Not Available
+                        </label>
+
+                    @error('available_state')
+                        <span class = "text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+
+            {!! Form::submit('Place for Sale', ['class' => 'btn btn-primary']) !!}
+
+            {!! Form::close() !!}
+        </div>
+    </div>
 @stop
 
 @section('css')
