@@ -4,11 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Author;
-use App\Models\Format;
-use App\Models\Gender;
 use App\Models\Publisher;
-use App\Models\Subgender;
 use App\Models\BookPurchaseDetail;
 use Illuminate\Database\Seeder;
 
@@ -28,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SubgenderSeeder::class);
         $this->call(FormatSeeder::class);
         $this->call(TypeSeeder::class);
+        $this->call(LanguageSeeder::class);
         $this->call(BookSeeder::class);
         BookPurchaseDetail::factory(25)->create();
         // \App\Models\User::factory(10)->create();

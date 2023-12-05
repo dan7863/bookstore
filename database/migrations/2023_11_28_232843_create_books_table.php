@@ -21,9 +21,15 @@ return new class extends Migration
             $table->unsignedBigInteger('publisher_id')->nullable();
             $table->unsignedBigInteger('author_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('publisher_id')->references('id')->on('publishers')->onDelete('set null')->onUpdate('set null');
-            $table->foreign('author_id')->references('id')->on('authors')->onDelete('set null')->onUpdate('set null');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('set null');
+            $table->unsignedBigInteger('language_id')->nullable();
+            $table->foreign('publisher_id')->references('id')
+            ->on('publishers')->onDelete('set null')->onUpdate('set null');
+            $table->foreign('author_id')->references('id')
+            ->on('authors')->onDelete('set null')->onUpdate('set null');
+            $table->foreign('user_id')->references('id')
+            ->on('users')->onDelete('set null')->onUpdate('set null');
+            $table->foreign('language_id')->references('id')
+            ->on('languages')->onDelete('set null')->onUpdate('set null');
             $table->timestamps();
         });
     }

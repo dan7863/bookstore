@@ -7,6 +7,8 @@ use App\Models\Book;
 use App\Models\Description;
 use App\Models\Format;
 use App\Models\Image;
+use App\Models\Language;
+use App\Models\ProgressState;
 use App\Models\Publisher;
 use App\Models\Subgender;
 use App\Models\Type;
@@ -43,7 +45,7 @@ class BookService
 
     public function save_image($image){
         $image = base64_decode($image);
-        $file_name =  md5(uniqid('imagen_', true)) . '.jpeg';
+        $file_name =  hash('sha256', uniqid('imagen_', true)) . '.jpeg';
         $images_path = storage_path('app/public/image_books');
         $file_path = $images_path . '/' . $file_name;
         if (!file_exists($images_path)) {
@@ -53,17 +55,17 @@ class BookService
         return 'image_books/' . $file_name;
     }
 
-
+    //Stores books with its respective relations
     public function create_book(Request $request)
     {
-
         $book = Book::create([
             'title' => $request->title,
             'slug' => $request->slug,
             'isbn' => $request->isbn,
             'page_count' => $request->page_count,
-            'publisher_id' => $this->get_publisher_id($request->publisher),
-            'author_id' =>  $this->get_author_id($request->author),
+            'publisher_id' => $this->get_relation_id($request->publisher, 'publisher'),
+            'author_id' =>  $this->get_relation_id($request->author, 'author'),
+            'language_id' =>  $this->get_relation_id($request->language, 'language'),
             'user_id' => auth()->id()
         ]);
 
@@ -81,30 +83,37 @@ class BookService
                 ]
             );
         }
+        $this->create_progress_state($book->id);
+
     }
 
-    public function get_publisher_id($publisher){
-        if(!empty($publisher)){
-            $publisher_name = ucwords($publisher);
-            $publisher = Publisher::firstOrCreate(
-                ['name' => $publisher_name, 
-                'slug' => Str::slug($publisher_name)
-            ]);
+
+    public function get_relation_id($name, $model){
+        if(!empty($name)){
+            $name = ucwords($name);
+            switch($model){
+                case($model == 'publisher'):
+                    $item = Publisher::firstOrCreate(
+                        ['name' => $name, 
+                        'slug' => Str::slug($name)
+                    ]);
+                break;
+                case($model == 'author'):
+                    $item = Author::firstOrCreate(
+                        ['name' => $name, 
+                        'slug' => Str::slug($name)
+                    ]);
+                break;
+                case($model == 'language'):
+                    $item = Language::firstOrCreate(
+                        ['language' => $name
+                    ]);
+                break;
+            }
+            return $item->id;
         }
-
-        return $publisher->id;
-    }
-
-    public function get_author_id($author){
-        if(!empty($author)){
-            $author_name = ucwords($author);
-            $author = Author::firstOrCreate(
-                ['name' => $author_name, 
-                'slug' => Str::slug($author_name)
-            ]);
-        }
-
-        return $author->id;
+       
+        return null;
     }
 
     public function create_description($description, $book_id){
@@ -127,6 +136,13 @@ class BookService
         ]);
     }
 
+    public function create_progress_state($book_id){
+        ProgressState::create([
+            'progress_stateable_id' => $book_id,
+            'progress_stateable_type' => Book::class
+        ]);
+    }
+
     public function get_subgenders_ids($subgenders){
         $subgenders_ids = [];
         if(!empty($subgenders)){
@@ -138,7 +154,6 @@ class BookService
                     'slug' => Str::slug($upper_subgender)
                 ]);
                 $subgenders_ids[] = $subgender->id;
-          
             }
         }
         return $subgenders_ids;
@@ -153,7 +168,6 @@ class BookService
                 $type = Type::firstOrCreate(['type' => 'Ebook', 'format_id' => $format->id]);
             }
         }
-
         return $type;
     }
    

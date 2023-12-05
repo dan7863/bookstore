@@ -10,7 +10,10 @@ class Book extends Model
     use HasFactory;
 
     protected $guarded = [];
-    
+
+    public function getRouteKeyName(){
+        return "slug";
+    }
     //One to one relation
 
     public function book_purchase_detail(){
@@ -22,13 +25,19 @@ class Book extends Model
     public function purchase_orders(){
         return $this->hasMany('App\Models\PurchaseOrder');
     }
-    
+   
     //One to one relation (reverse)
 
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
 
+    //One to many relation (reverse)
+
+    public function language(){
+        return $this->belongsTo('App\Models\Language');
+    }
+    
     public function author(){
         return $this->belongsTo('App\Models\Author');
     }

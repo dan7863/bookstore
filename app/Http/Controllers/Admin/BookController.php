@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\BookPurchaseDetail;
 use App\Services\BookService;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class BookController extends Controller
         $book_service = new BookService();
         $book_service->create_book($request);
         return redirect()->route('admin.books.index')
-        ->with('info', $request->name . ' Book has been successfully loaded.');
+        ->with('info', $request->title . ' Book has been successfully loaded.');
     }
 
     /**
@@ -59,7 +60,10 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $request->merge(['book_id' => $book->id]);
+        BookPurchaseDetail::create($request->all());
+        return redirect()->route('admin.books.index')
+        ->with('info', $book->title . ' Book has been successfully placed for sale.');
     }
 
     /**
@@ -79,7 +83,6 @@ class BookController extends Controller
         $current_path = $file->storeAs('temporal', $file->getClientOriginalName(), 'public');
         $book_service = new BookService;
         $ebook = $book_service->process_file(public_path('/storage/'.$current_path));
-        $cover = $ebook['cover'];
         return view('admin.books.create', compact('ebook'));
     }
 }
