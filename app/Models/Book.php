@@ -4,14 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kiwilan\Ebook\Ebook;
 
 class Book extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
-    
+
+    public function getRouteKeyName(){
+        return "slug";
+    }
     //One to one relation
 
     public function book_purchase_detail(){
@@ -23,13 +25,19 @@ class Book extends Model
     public function purchase_orders(){
         return $this->hasMany('App\Models\PurchaseOrder');
     }
-    
+   
     //One to one relation (reverse)
 
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
 
+    //One to many relation (reverse)
+
+    public function language(){
+        return $this->belongsTo('App\Models\Language');
+    }
+    
     public function author(){
         return $this->belongsTo('App\Models\Author');
     }
@@ -90,41 +98,9 @@ class Book extends Model
             ->get();
     }
 
-    public function process_file($url){
-        $is_valid = Ebook::isValid($url);
-        if($is_valid){
-            $ebook = Ebook::read($url); 
-            if($ebook->isArchive()){
-                return [
-                    'path' => $ebook->getPath(),
-                    'file_name' => $ebook->getFilename(),
-                    'title' => $ebook->getTitle(),
-                    'slug' => $ebook->getMetaTitle()->getSlug(),
-                    'author' => $ebook->getAuthorMain(),
-                    'description' => $ebook->getDescription(),
-                    'publisher' => $ebook->getPublisher(),
-                    'page_count' => $ebook->getPagesCount(),
-                    'language' => $ebook->getLanguage(),
-                    'tags' => $ebook->getTags(),
-                    'cover' => $ebook->getCover()->getContents(true),
-                    'extension' => $ebook->getExtension()
-                ];
-            }
-        }
+   
 
-        return 'invalid';
-    }
+   
 
-    public function save_book_image($image){
-        $image = base64_decode($image);
-        $file_name =   md5(uniqid('imagen_', true)) . '.jpeg';
-        $images_path = storage_path('app/public/image_books');
-        $file_path = $images_path . '/' . $file_name;
-        if (!file_exists($images_path)) {
-            mkdir($images_path, 0755, true);
-        }
-        file_put_contents($file_path, $image);
-        return 'image_books/' . $file_name;
-    }
-    
+
 }

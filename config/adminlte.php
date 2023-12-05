@@ -352,14 +352,14 @@ return [
                     'route' => 'admin.books.index',
                 ],
                 [
-                    'text' => 'Selling',
-                    'icon' => 'fas fa-fw fa-dollar-sign',
-                    'url' => '#',
-                ],
-                [
                     'text' => 'Purchases',
                     'icon' => 'fas fa-w fa-shopping-cart',
                     'url' => '#'
+                ],
+                [
+                    'text' => 'Selling',
+                    'icon' => 'fas fa-fw fa-dollar-sign',
+                    'url' => '#',
                 ],
             ]
         ],

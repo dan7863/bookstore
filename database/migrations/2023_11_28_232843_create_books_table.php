@@ -18,13 +18,18 @@ return new class extends Migration
             //13 digits and 4 dash to separate by 5 groups
             $table->char('isbn', 17)->unique()->nullable();
             $table->unsignedInteger('page_count');
-            $table->string('url');
             $table->unsignedBigInteger('publisher_id')->nullable();
             $table->unsignedBigInteger('author_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('publisher_id')->references('id')->on('publishers')->onDelete('set null')->onUpdate('set null');
-            $table->foreign('author_id')->references('id')->on('authors')->onDelete('set null')->onUpdate('set null');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('set null');
+            $table->unsignedBigInteger('language_id')->nullable();
+            $table->foreign('publisher_id')->references('id')
+            ->on('publishers')->onDelete('set null')->onUpdate('set null');
+            $table->foreign('author_id')->references('id')
+            ->on('authors')->onDelete('set null')->onUpdate('set null');
+            $table->foreign('user_id')->references('id')
+            ->on('users')->onDelete('set null')->onUpdate('set null');
+            $table->foreign('language_id')->references('id')
+            ->on('languages')->onDelete('set null')->onUpdate('set null');
             $table->timestamps();
         });
     }

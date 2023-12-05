@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Author;
+use App\Models\Language;
 use App\Models\Publisher;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -28,10 +29,10 @@ class BookFactory extends Factory
             'slug' => Str::slug($title),
             'isbn' => $this->faker->isbn13('-'),
             'page_count' => $this->faker->numberBetween($min_number, $max_number),
-            'url' => $this->faker->url(),
             'publisher_id' => Publisher::all()->random()->id,
             'author_id' => Author::all()->random()->id,
-            'user_id' => User::all()->random()->id
+            'user_id' => User::all()->random()->id,
+            'language_id' => Language::all()->random()->id
         ];
     }
 }
