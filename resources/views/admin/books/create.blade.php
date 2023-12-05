@@ -97,10 +97,10 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('type', 'Type') !!}
-                    {!! Form::text('type', $ebook['extension'] ?? null, ['class' => 'form-control', 'readonly']) !!}
+                    {!! Form::label('format', 'Format') !!}
+                    {!! Form::text('format', $ebook['extension'] ?? null, ['class' => 'form-control', 'readonly']) !!}
 
-                    @error('type')
+                    @error('format')
                         <span class = "text-danger">{{$message}}</span>
                     @enderror
                 </div>
