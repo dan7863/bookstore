@@ -14,11 +14,12 @@ use Tests\TestCase;
 class EmailVerificationTest extends TestCase
 {
     use RefreshDatabase;
+    protected $msgEmailNotEnabled = 'Email verification not enabled.';
 
     public function test_email_verification_screen_can_be_rendered(): void
     {
         if (! Features::enabled(Features::emailVerification())) {
-            $this->markTestSkipped('Email verification not enabled.');
+            $this->markTestSkipped($this->msgEmailNotEnabled);
 
             return;
         }
@@ -33,7 +34,7 @@ class EmailVerificationTest extends TestCase
     public function test_email_can_be_verified(): void
     {
         if (! Features::enabled(Features::emailVerification())) {
-            $this->markTestSkipped('Email verification not enabled.');
+            $this->markTestSkipped($this->msgEmailNotEnabled);
 
             return;
         }
@@ -45,7 +46,7 @@ class EmailVerificationTest extends TestCase
         $verificationUrl = URL::temporarySignedRoute(
             'verification.verify',
             now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => sha1($user->email)]
+            ['id' => $user->id, 'hash' => hash('sha-256', $user->email)]
         );
 
         $response = $this->actingAs($user)->get($verificationUrl);
@@ -59,7 +60,7 @@ class EmailVerificationTest extends TestCase
     public function test_email_can_not_verified_with_invalid_hash(): void
     {
         if (! Features::enabled(Features::emailVerification())) {
-            $this->markTestSkipped('Email verification not enabled.');
+            $this->markTestSkipped($this->msgEmailNotEnabled);
 
             return;
         }
@@ -69,7 +70,7 @@ class EmailVerificationTest extends TestCase
         $verificationUrl = URL::temporarySignedRoute(
             'verification.verify',
             now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => sha1('wrong-email')]
+            ['id' => $user->id, 'hash' => hash('sha-256', 'wrong-email')]
         );
 
         $this->actingAs($user)->get($verificationUrl);
