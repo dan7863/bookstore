@@ -84,7 +84,7 @@ class BookController extends Controller
 
     public function upload_file(Request $request){
         $request->validate([
-            'file' => 'required|file|mimetypes:application/epub+zip,application/zip',
+            'file' => 'required|file|mimetypes:application/epub+zip,application/zip|max:10240',
         ]);
         $auth_id = auth()->id();
         $file = $request->file('file');
