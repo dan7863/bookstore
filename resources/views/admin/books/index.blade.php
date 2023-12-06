@@ -19,6 +19,11 @@
             <strong>{{session('info')}}</strong>
         </div>
     @endif
+    @if(session('error'))
+        <div class = "alert alert-danger" id = "alert-error">
+            <strong>{{session('error')}}</strong>
+        </div>
+    @endif
     @livewire('admin.books-index', ['type' => 'book'])
     <div class="modal" id = "modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -32,8 +37,14 @@
                 <form action = "{{route('admin.books.upload.file')}}" method = "POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <input type = "file" name = "file">
+                        <input type = "file" name = "file" class="w-100 mw-100">
+                        <div class = "mt-2">
+                            @error('file')
+                                <span class = "text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
                     </div>
+                    
                     <div class="modal-footer">
                         <button type = "submit" class = "btn btn-primary">
                             <i class = "fas fa-w fa-upload"></i> Upload
@@ -54,9 +65,11 @@
     <script>
         $("#alert-info").fadeIn('slow');
         $("#alert-info").delay(2000).fadeOut('slow');
+        $("#alert-error").fadeIn('slow');
+        $("#alert-error").delay(2000).fadeOut('slow');
         $(".dropdown-menu").hide();
-        
-         $(document).on("click", ".icon-menu", function () {
+
+        $(document).on("click", ".icon-menu", function () {
             $(".dropdown-menu").hide();
             $("#dropdown-menu-" + $(this).attr('book-id')).toggle();
             event.stopPropagation();
@@ -68,4 +81,15 @@
             }
         });
     </script>
+
+    @if($errors->count() > 0)
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $("#modal").delay(2000).modal('show');
+            }, 500);
+        });
+    </script>
+    @endif
+
 @endsection

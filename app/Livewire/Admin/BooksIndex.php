@@ -22,7 +22,6 @@ class BooksIndex extends Component
 
     public function render()
     {
-     
         if($this->type == 'book'){
             $books = Book::where('user_id', auth()->user()->id)
             ->where('title', 'LIKE', '%'.$this->search.'%')
@@ -32,6 +31,7 @@ class BooksIndex extends Component
         elseif($this->type == 'book-purchase-details'){
             $books = Book::where('user_id', auth()->user()->id)
             ->where('title', 'LIKE', '%'.$this->search.'%')
+            ->has('book_purchase_detail')
             ->with('book_purchase_detail')->latest()->paginate(10);
             return view('livewire.admin.books-index', compact('books'));
         }

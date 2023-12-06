@@ -13,7 +13,11 @@
                 <h2>{{$book['title'] ?? null}}</h2>
             </div>
             <div class = "text-right w-100">
-                <a class = "btn btn-secondary" href = "{{route('admin.books.index')}}">Volver</a>
+                @if(isset($book->book_purchase_detail))
+                    <a class = "btn btn-secondary" href = "{{route('admin.book-purchase-details.index')}}">Volver</a>
+                @else
+                    <a class = "btn btn-secondary" href = "{{route('admin.books.index')}}">Volver</a>
+                @endif
             </div>
         </div>
         <div class="card-body">

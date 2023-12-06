@@ -5,10 +5,7 @@
 @section('content_header')
     <div class = "row">
         <div class = "col-sm-6">
-            <h1>Loaded Books</h1>
-        </div>
-        <div class = "col-sm-6 load-book text-right mt-2">
-            <a data-toggle="modal" data-target="#modal" class = "btn btn-secondary">Load Book</a>
+            <h1>Selling Books</h1>
         </div>
     </div>
 @stop

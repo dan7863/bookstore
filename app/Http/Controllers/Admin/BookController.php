@@ -69,7 +69,7 @@ class BookController extends Controller
             BookPurchaseDetail::create($request->all());
         }
         return redirect()->route('admin.book-purchase-details.index')
-        ->with('info', $book->title . ' Book Purchase Detail has been successfully updated.');
+        ->with('info', $book->title . ' Book Purchase Detail has been successfully placed for sale.');
     }
 
     /**
@@ -83,12 +83,26 @@ class BookController extends Controller
     }
 
     public function upload_file(Request $request){
+        $request->validate([
+            'file' => 'required|file|mimetypes:application/epub+zip,application/zip',
+        ]);
+        $auth_id = auth()->id();
         $file = $request->file('file');
-        $path = storage_path('app/public/temporal');
+        $path = storage_path('app/public/temporal/'.$auth_id);
         !file_exists($path) ?  mkdir($path, 0755, true) : '';
-        $current_path = $file->storeAs('temporal', $file->getClientOriginalName(), 'public');
+        $current_path = $file->storeAs('temporal/'.$auth_id, $file->getClientOriginalName(), 'public');
         $book_service = new BookService;
         $ebook = $book_service->processFile(public_path('/storage/'.$current_path));
+        $book_validation = Book::where('user_id', $auth_id)->where('title', $ebook['title'])->first();
+        if(!empty($book_validation)){
+            $temporal_file_path = public_path('/storage/'.$current_path);
+            if (file_exists($temporal_file_path)) {
+                unlink($temporal_file_path);
+            }
+            return redirect()->route('admin.books.index')
+            ->with('error', $ebook['title'] . ' Book is Already Loaded.');
+        }
+
         return view('admin.books.create', compact('ebook'));
     }
 }

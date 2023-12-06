@@ -22,16 +22,17 @@ class BookFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->unique()->sentence;
+        $user_id = Author::all()->random()->id;
         $min_number = 50;
         $max_number = 2000;
         return [
             'title' => $title,
-            'slug' => Str::slug($title),
+            'slug' => Str::slug($title . '-' . $user_id),
             'isbn' => $this->faker->isbn13('-'),
             'page_count' => $this->faker->numberBetween($min_number, $max_number),
             'publisher_id' => Publisher::all()->random()->id,
             'author_id' => Author::all()->random()->id,
-            'user_id' => User::all()->random()->id,
+            'user_id' => $user_id,
             'language_id' => Language::all()->random()->id
         ];
     }

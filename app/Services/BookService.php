@@ -58,15 +58,16 @@ class BookService
     //Stores books with its respective relations
     public function createBook(Request $request)
     {
+        $auth_id = auth()->id();
         $book = Book::create([
             'title' => $request->title,
-            'slug' => $request->slug,
+            'slug' => $request->slug . '-' . $auth_id,
             'isbn' => $request->isbn,
             'page_count' => $request->page_count,
             'publisher_id' => $this->getRelationId($request->publisher, 'publisher'),
             'author_id' =>  $this->getRelationId($request->author, 'author'),
             'language_id' =>  $this->getRelationId($request->language, 'language'),
-            'user_id' => auth()->id()
+            'user_id' => $auth_id
         ]);
 
         $this->createImage($request->image, $book->id);
@@ -84,7 +85,10 @@ class BookService
             );
         }
         $this->createProgressState($book->id);
-
+        $temporal_file_path = public_path('/storage/temporal/'.auth()->id().'/'.$request->file_name.$request->format);
+        if (file_exists($temporal_file_path)) {
+            unlink($temporal_file_path);
+        }
     }
 
 

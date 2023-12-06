@@ -4,16 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Book extends Model
 {
     use HasFactory;
-
+    
     protected $guarded = [];
 
     public function getRouteKeyName(){
         return "slug";
     }
+
+
     //One to one relation
 
     public function book_purchase_detail(){
