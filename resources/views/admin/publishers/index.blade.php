@@ -32,8 +32,12 @@
                             <tr>
                                 <td>{{$author->id}}</td>
                                 <td>{{$author->name}}</td>
-                                <td width="10px"><a class = "btn btn-primary btn-sm" href = "{{route('admin.publishers.edit', $author)}}">Edit</a></td>
-                                <td width = "10px"><form action = "{{route('admin.publishers.destroy', $author)}}" method = "POST">
+                                <td style = "width: 10px;">
+                                    <a class = "btn btn-primary btn-sm"
+                                    href = "{{route('admin.publishers.edit', $author)}}">Edit</a>
+                                </td>
+                                <td style = "width: 10px;">
+                                    <form action = "{{route('admin.publishers.destroy', $author)}}" method = "POST">
                                     @csrf
                                     @method('delete')
                                     <button type = "submit" class = "btn btn-danger btn-sm">Delete</button>

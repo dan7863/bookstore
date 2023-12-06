@@ -23,7 +23,7 @@ class SubgenderController extends Controller
      */
     public function create()
     {
-        $genders = Gender::pluck('name', 'id')->toArray();;
+        $genders = Gender::pluck('name', 'id')->toArray();
         return view('admin.subgenders.create', compact('genders'));
     }
 
@@ -57,7 +57,7 @@ class SubgenderController extends Controller
      */
     public function edit(Subgender $subgender)
     {
-        $genders = Gender::pluck('name', 'id')->toArray();;
+        $genders = Gender::pluck('name', 'id')->toArray();
         return view('admin.subgenders.edit', compact('subgender', 'genders'));
     }
 

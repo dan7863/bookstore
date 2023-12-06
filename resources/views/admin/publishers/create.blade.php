@@ -15,7 +15,8 @@
 
                 <div class="form-group">
                     {!! Form::label('name', 'Name') !!}
-                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Type Publisher Name']) !!}
+                    {!! Form::text('name', null,
+                    ['class' => 'form-control', 'placeholder' => 'Type Publisher Name']) !!}
 
                     @error('name')
                         <span class = "text-danger">{{$message}}</span>
@@ -24,7 +25,8 @@
 
                 <div class="form-group">
                     {!! Form::label('slug', 'Slug') !!}
-                    {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Type Publisher Slug', 'readonly']) !!}
+                    {!! Form::text('slug', null,
+                    ['class' => 'form-control', 'placeholder' => 'Type Publisher Slug', 'readonly']) !!}
 
                     @error('slug')
                         <span class = "text-danger">{{$message}}</span>
@@ -49,4 +51,4 @@
                 });
         });
     </script>
-@endsection 
+@endsection

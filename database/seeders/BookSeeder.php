@@ -43,12 +43,7 @@ class BookSeeder extends Seeder
                 'progress_stateable_id' => $book->id,
                 'progress_stateable_type' => Book::class,
                 'reading_state' => $state,
-                'page_count' =>
-                ($state == 'Not Started' ? 0 : (
-                    $state == 'OnGoing' ? 
-                    $faker->numberBetween(0, $book->page_count) : $book->page_count
-                )
-                ),
+                'page_count' => $this->getPageCount($state, $faker, $book->page_count),
             ]);
 
 
@@ -66,14 +61,24 @@ class BookSeeder extends Seeder
 
             $book->types()->attach(
                 $book_id_first_type->id,
-                ['url' =>  substr_replace($fake_url_first_type, 
-                $book_id_first_type->format, 
+                ['url' =>  substr_replace($fake_url_first_type,
+                $book_id_first_type->format,
                 $dot_position_first_type)]);
             $book->types()->attach(
                 $book_id_second_type->id,
-                ['url' => substr_replace($fake_url_second_type, 
-                $book_id_second_type->format, 
+                ['url' => substr_replace($fake_url_second_type,
+                $book_id_second_type->format,
                 $dot_position_second_type)]);
         }
+    }
+
+    public function getPageCount($state, $faker, $page_count){
+        if($state == 'Completed'){
+            return $page_count;
+        }
+        elseif($state == 'OnGoing'){
+            return $faker->numberBetween(0, $page_count);
+        }
+        return 0;
     }
 }

@@ -32,8 +32,14 @@
                             <tr>
                                 <td>{{$gender->id}}</td>
                                 <td>{{$gender->name}}</td>
-                                <td width="10px"><a class = "btn btn-primary btn-sm" href = "{{route('admin.genders.edit', $gender)}}">Edit</a></td>
-                                <td width = "10px"><form action = "{{route('admin.genders.destroy', $gender)}}" method = "POST">
+                                <td style = "width: 10px;">
+                                    <a class = "btn btn-primary btn-sm"
+                                    href = "{{route('admin.genders.edit', $gender)}}">
+                                        Edit
+                                    </a>
+                                </td>
+                                <td style = "width: 10px;">
+                                    <form action = "{{route('admin.genders.destroy', $gender)}}" method = "POST">
                                     @csrf
                                     @method('delete')
                                     <button type = "submit" class = "btn btn-danger btn-sm">Delete</button>

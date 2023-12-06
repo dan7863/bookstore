@@ -42,7 +42,11 @@ class BookStoreController extends Controller
     {
         $related_books_by_author = $book->get_related_books_by_author();
         $related_books_by_subgenders = $book->get_related_books_by_subgenders();
-        return view('books.store.show', ['book' => $book, 'related_books_by_author' => $related_books_by_author, 'related_books_by_subgenders' => $related_books_by_subgenders]);
+        return view('books.store.show', [
+            'book' => $book,
+            'related_books_by_author' => $related_books_by_author,
+            'related_books_by_subgenders' => $related_books_by_subgenders
+        ]);
     }
 
     /**

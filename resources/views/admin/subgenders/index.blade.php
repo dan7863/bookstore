@@ -34,8 +34,12 @@
                                 <td>{{$subgender->id}}</td>
                                 <td>{{$subgender->name}}</td>
                                 <td>{{$subgender->gender->name ?? null}}</td>
-                                <td width = "10px"><a class = "btn btn-primary btn-sm" href = "{{route('admin.subgenders.edit', $subgender)}}">Edit</a></td>
-                                <td width = "10px">
+                                <td style = "width: 10px">
+                                    <a class = "btn btn-primary btn-sm"
+                                    href = "{{route('admin.subgenders.edit', $subgender)}}">
+                                    Edit</a>
+                                </td>
+                                <td style = "width: 10px">
                                     <form action = "{{route('admin.subgenders.destroy', $subgender)}}" method = "POST">
                                         @csrf
                                         @method('delete')

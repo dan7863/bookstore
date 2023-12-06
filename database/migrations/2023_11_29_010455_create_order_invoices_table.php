@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('body', 2000);
             $table->unsignedBigInteger('order_line_id');
-            $table->foreign('order_line_id')->references('id')->on('order_lines')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('order_line_id')->references('id')
+            ->on('order_lines')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

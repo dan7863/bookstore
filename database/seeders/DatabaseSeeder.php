@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 use App\Models\Publisher;
 use App\Models\BookPurchaseDetail;
 use Illuminate\Database\Seeder;

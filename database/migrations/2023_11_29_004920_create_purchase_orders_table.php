@@ -16,7 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('order_line_id');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('order_line_id')->references('id')->on('order_lines')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('order_line_id')->references('id')
+            ->on('order_lines')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
