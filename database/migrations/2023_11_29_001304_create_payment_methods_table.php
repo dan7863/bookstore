@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('method');
             $table->boolean('active');
+            $table->string('token');
+            $table->string('last_credit_numbers');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

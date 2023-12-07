@@ -27,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('available_state', function ($state) {
             return "<?php echo ($state == 1 ? 'Available' : 'Not Available') ?>";
         });
+
+        Blade::directive('payment_method_state', function ($state) {
+            return "<?php echo ($state == 1 ? 'Active' : 'Inactive') ?>";
+        });
     }
 }

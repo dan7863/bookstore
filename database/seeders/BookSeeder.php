@@ -20,8 +20,11 @@ class BookSeeder extends Seeder
     public function run(): void
     {
         $faker = app(Generator::class);
-        Storage::deleteDirectory('public/image_books');
-        Storage::makeDirectory('public/image_books');
+        $relative_path = 'public/image_books';
+        Storage::deleteDirectory($relative_path);
+        Storage::makeDirectory($relative_path);
+        $path = storage_path($relative_path);
+        !file_exists($path) ?  mkdir($path, 0755, true) : '';
         
         $books = Book::factory(50)->create();
 
