@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('order_lines', function (Blueprint $table) {
-            $table->enum('state', ['Pending Payment', 'Paid'])->after('total_amount')->default('Pending Payment');
+            // $table->enum('state', ['Pending Payment', 'Paid'])->after('total_amount')->default('Pending Payment');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('order_lines', function (Blueprint $table) {
-            $table->dropColumn('state');
+            // $table->dropColumn('state');
         });
     }
 };

@@ -1,10 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\Book;
+use App\Models\OrderInvoice;
+use App\Models\OrderLine;
 use App\Models\PaymentMethod;
+use App\Models\PurchaseOrder;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PaymentMethodController extends Controller
 {
@@ -89,5 +95,62 @@ class PaymentMethodController extends Controller
             ],
         ]);
         return $token->id;
+    }
+
+    public function processOrder(Book $book){
+        $stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
+        $checkout_session = $stripe->checkout->sessions->create([
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'cop',
+                    'product_data' => [
+                        'name' => $book->title,
+                    ],
+                    'unit_amount' => intVal($book->book_purchase_detail->price*100),
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'invoice_creation' => ['enabled' => true],
+            'customer_email' => auth()->user()->email,
+            'success_url' => route('books_store.process-payment')."?session_id={CHECKOUT_SESSION_ID}",
+            'cancel_url' => route('books_store.show', $book),
+            'metadata' => [
+                'customer_id' => auth()->id(),
+                'book_id' => $book->id,
+            ],
+        ]);
+
+        header("HTTP/1.1 303 See Other");
+        return redirect($checkout_session->url);
+    }
+
+    public function processPayment(Request $request)
+    {
+        $stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
+        $session_id = $request->get('session_id');
+
+        $session = $stripe->checkout->sessions->retrieve($session_id);
+
+        if(!$session){
+            throw new NotFoundHttpException;
+        }
+
+        $order_line = OrderLine::create([
+            'session_id' => $session_id,
+            'quantity' => 1
+        ]);
+
+        PurchaseOrder::create([
+            'book_id' => $session->metadata->book_id,
+            'order_line_id' => $order_line->id
+        ]);
+
+        OrderInvoice::create([
+            'invoice_id' => $session->invoice,
+            'order_line_id' => $order_line->id
+        ]);
+        
+        return redirect($stripe->invoices->retrieve($session->invoice)->hosted_invoice_url);
     }
 }

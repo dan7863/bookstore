@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('order_invoices', function (Blueprint $table) {
-            $table->text('body')->change();
+            $table->string('invoice_id')->change();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('order_invoices', function (Blueprint $table) {
-            $table->text('body', 2000)->change();
+            $table->text('invoice_id', 2000)->change();
         });
     }
 };

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('order_invoices', function (Blueprint $table) {
             $table->id();
-            $table->text('body', 2000);
+            $table->string('invoice_id');
             $table->unsignedBigInteger('order_line_id');
             $table->foreign('order_line_id')->references('id')
             ->on('order_lines')->onDelete('cascade')->onUpdate('cascade');

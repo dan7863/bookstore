@@ -11,10 +11,13 @@
                 <h4 class = "text-blue-500 my-4"><a href = "#">{{$book->author->name}}</a></h4>
                 <p class = "my-4 text-gray-700">
                   Launched on <span class = "font-bold text-gray-900">
-                    {{date('d-M-y', strtotime($book->created_at))}}</span> • Published by
-                    <span class = "text-blue-500 my-4">
-                      <a href = "">{{$book->publisher->name}}</a>
-                    </span>
+                    {{date('d-M-y', strtotime($book->created_at))}}</span>
+                    @if(isset($book->publisher))
+                      • Published by
+                      <span class = "text-blue-500 my-4">
+                        <a href = "">{{$book->publisher->name}}</a>
+                      </span>
+                    @endif
                   </p>
                 <dl class="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
                   <div class="border-t border-gray-200 pt-4 text-center">
@@ -37,7 +40,8 @@
                     <dd class="mt-2 text-sm text-gray-500">Hand sanded</dd>
                   </div>
                 </dl>
-                <p class = "text-center mt-10 text-blue-500"><a href = "#">Change to Audiobook (check if exists)</a></p>
+                {{-- <p class = "text-center mt-10 text-blue-500">
+                  <a href = "#">Change to Audiobook (check if exists)</a></p> --}}
               </div>
 
                <!-- Image Content -->
@@ -45,10 +49,17 @@
                 <img src="{{ url('storage/' . $book->image->url) }}"
                 alt="Walnut card tray with white powder coated steel divider and 3 punchout holes."
                 class="rounded-lg bg-gray-100 w-80 h-80 shadow-sm">
-                <button class="mt-6 bg-blue-400 mt-4 hover:bg-blue-500
-                text-white font-bold py-2 px-4 border rounded">
-                  Buy for @money($book->book_purchase_detail->price)
-                </button>
+                @if($buying_status)
+                  <a class="mt-6 bg-blue-400 mt-4 hover:bg-blue-500
+                  text-white font-bold py-2 px-4 border rounded" href = "{{route('books_store.process-order', $book)}}">
+                    Buy for @money($book->book_purchase_detail->price)
+                  </a>
+                @else
+                  <a class="mt-6 bg-blue-400 mt-4 hover:bg-blue-500
+                  text-white font-bold py-2 px-4 border rounded" href = "#">
+                    Read Book
+                  </a>
+                @endif
               </div>
             </div>
             
@@ -62,9 +73,11 @@
                         <img src="{{ url('storage/project_images/right_arrow.png')}}" alt = "Right Arrow" class="w-4">
                     </div>
                   </div>
-                  <p class="mt-8 text-gray-500">
-                    {{\Illuminate\Support\Str::limit($book->description->description, 500, $end='...') }}
-                  </p>
+                  @if(!empty($book->description))
+                    <p class="mt-8 text-gray-500">
+                      {{\Illuminate\Support\Str::limit($book->description->description, 500, $end='...') }}
+                    </p>
+                  @endif
 
                   @include('partials.books.book-subgenders', ['subgenders' => $book->subgenders])
 
@@ -126,6 +139,7 @@
                   <div class = "mt-10 text-center">
                     <a href = "#" class = "text-blue-500">See All Opinions</a>
                   </div>
+                  @if($buyed_book)
                   <div class = "mt-16">
                     <h2 class = "text-2xl font-bold text-gray mr-6 mt-2">Rate This Element</h2>
                     <div class = "flex justify-between">
@@ -135,40 +149,48 @@
                       text-white font-bold py-2 px-4 border rounded">Write an Opinion</button>
                     </div>
                   </div>
+                  @endif
                 </div>
                 <div class = "lg:col-span-2">
-                  <div>
-                    <div class = "flex flex-row mt-16 justify-center">
-                      <h2 class = "text-2xl font-bold text-gray mr-6 mb-6">More About {{$book->author->name}}</h2>
-                      <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
-                          <img src="{{ url('storage/project_images/right_arrow.png')}}" alt = "Right Arrow" class="w-4">
+             
+                  @if(count($related_books_by_author) > 0)
+                    <div>
+                      <div class = "flex flex-row mt-16 justify-center">
+                        <h2 class = "text-2xl font-bold text-gray mr-6 mb-6">More About {{$book->author->name}}</h2>
+                        <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
+                            <img src="{{ url('storage/project_images/right_arrow.png')}}"
+                            alt = "Right Arrow" class="w-4">
+                        </div>
+                      </div>
+                      
+                      <div>
+                        @foreach($related_books_by_author as $book_related)
+                            @include('partials.books.book',
+                            ['book' => $book_related, 'group_classes' => 'w-40 mr-auto ml-auto mb-4',
+                            'height_aspect' => 'lg:h-50'])
+                        @endforeach
                       </div>
                     </div>
-                    
+                  @endif
+                 
+                  @if(count($related_books_by_subgenders) > 0)
                     <div>
-                      @foreach($related_books_by_author as $book_related)
-                          @include('partials.books.book',
-                          ['book' => $book_related, 'group_classes' => 'w-40 mr-auto ml-auto mb-4',
-                          'height_aspect' => 'lg:h-50'])
-                      @endforeach
-                    </div>
-                  </div>
-
-                  <div>
-                    <div class = "flex flex-row mt-16 justify-center">
-                      <h2 class = "text-2xl font-bold text-gray mr-6 mb-6">Similar Content</h2>
-                      <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
-                          <img src="{{ url('storage/project_images/right_arrow.png')}}" alt = "Right Arrow" class="w-4">
+                      <div class = "flex flex-row mt-16 justify-center">
+                        <h2 class = "text-2xl font-bold text-gray mr-6 mb-6">Similar Content</h2>
+                        <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
+                            <img src="{{ url('storage/project_images/right_arrow.png')}}"
+                            alt = "Right Arrow" class="w-4">
+                        </div>
+                      </div>
+                      <div>
+                        @foreach($related_books_by_subgenders as $book_related)
+                            @include('partials.books.book',
+                            ['book' => $book_related, 'group_classes' => 'w-40 mr-auto ml-auto mb-4',
+                            'height_aspect' => 'lg:h-50'])
+                        @endforeach
                       </div>
                     </div>
-                    <div>
-                      @foreach($related_books_by_subgenders as $book_related)
-                          @include('partials.books.book',
-                          ['book' => $book_related, 'group_classes' => 'w-40 mr-auto ml-auto mb-4',
-                          'height_aspect' => 'lg:h-50'])
-                      @endforeach
-                    </div>
-                  </div>
+                  @endif
                 </div>
             </div>
           </div>
