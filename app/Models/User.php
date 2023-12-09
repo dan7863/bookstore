@@ -81,6 +81,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\OrderLine');
     }
 
+    public function comments(){
+        return $this->hasMany('App\Models\Comment');
+    }
+
     //Many to many relation
     
     public function roles(){

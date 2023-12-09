@@ -21,8 +21,10 @@
                   </p>
                 <dl class="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
                   <div class="border-t border-gray-200 pt-4 text-center">
-                    <dt class="font-medium text-gray-900">4.5 ★</dt>
-                    <dd class="mt-2 text-sm text-gray-500">187 Opinions</dd>
+                    <dt class="font-medium text-gray-900">
+                      {{number_format($book->comments->avg('stars'), 2, '.', '')}} ★
+                    </dt>
+                    <dd class="mt-2 text-sm text-gray-500">{{$book->comments->count()}} Opinions</dd>
                   </div>
                   <div class="border-t border-gray-200 pt-4 flex flex-col items-center">
                     <dt class="font-medium text-gray-900">
@@ -36,8 +38,10 @@
                     <dd class="mt-2 text-sm text-gray-500">Pages</dd>
                   </div>
                   <div class="border-t border-gray-200 pt-4 text-center">
-                    <dt class="font-medium text-gray-900">Finish</dt>
-                    <dd class="mt-2 text-sm text-gray-500">Hand sanded</dd>
+                    <dt class="font-medium text-gray-900">
+                      @available_state($book->book_purchase_detail->available_state)
+                    </dt>
+                    <dd class="mt-2 text-sm text-gray-500">State</dd>
                   </div>
                 </dl>
                 {{-- <p class = "text-center mt-10 text-blue-500">
@@ -47,8 +51,8 @@
                <!-- Image Content -->
               <div class="flex flex-col justify-center items-center lg:col-span-2">
                 <img src="{{ url('storage/' . $book->image->url) }}"
-                alt="Walnut card tray with white powder coated steel divider and 3 punchout holes."
-                class="rounded-lg bg-gray-100 w-80 h-80 shadow-sm">
+                alt="{{$book->image->url}}"
+                class="rounded-lg bg-gray-100 w-60 h-80 shadow-sm">
                 @if($buying_status)
                   <a class="mt-6 bg-blue-400 mt-4 hover:bg-blue-500
                   text-white font-bold py-2 px-4 border rounded" href = "{{route('books_store.process-order', $book)}}">
@@ -80,76 +84,7 @@
                   @endif
 
                   @include('partials.books.book-subgenders', ['subgenders' => $book->subgenders])
-
-                  <!-- Rates and Opinions -->
-                  <div class = "mt-16">
-                    <h2 class = "text-2xl font-bold text-gray mr-6 mt-2">Ratings and Opinions</h2>
-                    <div class ="flex mt-8 justify-between">
-                      <div class = "flex flex-col justify-center w-80">
-                        <h2 class = "text-5xl text-gray mr-6 text-center ml-auto mr-auto">4.5</h2>
-                        @include('partials.starts', ['margin_top' => 'mt-4', 'justify_content' => 'justify-center'])
-                      </div>
-                      <div class = "w-full">
-                        <div class="flex items-center mt-4">
-                            <a href="#" class="text-sm font-medium
-                            text-blue-600 dark:text-blue-500 hover:underline">5 star</a>
-                            <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div class="h-5 bg-blue-300 rounded" style="width: 70%"></div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">70%</span>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <a href="#" class="text-sm font-medium
-                            text-blue-600 dark:text-blue-500 hover:underline">4 star</a>
-                            <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div class="h-5 bg-blue-300 rounded" style="width: 17%"></div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">17%</span>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <a href="#" class="text-sm font-medium
-                            text-blue-600 dark:text-blue-500 hover:underline">3 star</a>
-                            <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div class="h-5 bg-blue-300 rounded" style="width: 8%"></div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">8%</span>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <a href="#" class="text-sm font-medium
-                            text-blue-600 dark:text-blue-500 hover:underline">2 star</a>
-                            <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div class="h-5 bg-blue-300 rounded" style="width: 4%"></div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">4%</span>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <a href="#" class="text-sm font-medium
-                            text-blue-600 dark:text-blue-500 hover:underline">1 star</a>
-                            <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div class="h-5 bg-blue-300 rounded" style="width: 1%"></div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">1%</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  @include('partials.comments')
-                  @include('partials.comments')
-                  @include('partials.comments')
-                  <div class = "mt-10 text-center">
-                    <a href = "#" class = "text-blue-500">See All Opinions</a>
-                  </div>
-                  @if($buyed_book)
-                  <div class = "mt-16">
-                    <h2 class = "text-2xl font-bold text-gray mr-6 mt-2">Rate This Element</h2>
-                    <div class = "flex justify-between">
-                      @include('partials.starts', ['items_width' => 'w-10', 'items_height' => 'h-10'])
-                      <button
-                      class="bg-blue-400 mt-4 hover:bg-blue-500
-                      text-white font-bold py-2 px-4 border rounded">Write an Opinion</button>
-                    </div>
-                  </div>
-                  @endif
+                  @include('partials.rates-and-opinions', ['book' => $book])
                 </div>
                 <div class = "lg:col-span-2">
              

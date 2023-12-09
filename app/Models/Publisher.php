@@ -22,6 +22,6 @@ class Publisher extends Model
     //One to many polymorphic relation
 
     public function comments(){
-        return $this->morphMany('App\Models\Comment', 'commenteable');
+        return $this->morphMany('App\Models\Comment', 'commentable');
     }
 }

@@ -138,7 +138,7 @@ class PaymentMethodController extends Controller
 
         $order_line = OrderLine::create([
             'session_id' => $session_id,
-            'quantity' => 1
+            'buyer_id' => auth()->id()
         ]);
 
         PurchaseOrder::create([

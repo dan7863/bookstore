@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Comment;
 use App\Models\OrderLine;
 use App\Models\PurchaseOrder;
 use App\Models\Subgender;
@@ -49,7 +50,6 @@ class BookStoreController extends Controller
         $buyed_book = OrderLine::whereHas('purchase_orders', function ($query) use ($bookId) {
             $query->where('book_id', $bookId);
         })->where('buyer_id', auth()->id())->exists();
-
         
         
         return view('books.store.show', [
@@ -88,5 +88,17 @@ class BookStoreController extends Controller
     public function subgender(Subgender $subgender){
         $books = $subgender->get_related_books();
         return view('books.store.subgender', compact('books', 'subgender'));
+    }
+
+    public function rateBook(Request $request, Book $book){
+        Comment::create([
+            'message' => $request->message,
+            'stars' => $request->stars,
+            'user_id' => auth()->id(),
+            'commentable_id' => $book->id,
+            'commentable_type' => Book::class
+        ]);
+
+        return redirect()->route('books_store.show', compact('book'));
     }
 }
