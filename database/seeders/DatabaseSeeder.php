@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Publisher;
-use App\Models\BookPurchaseDetail;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,7 +23,9 @@ class DatabaseSeeder extends Seeder
         $this->call(TypeSeeder::class);
         $this->call(LanguageSeeder::class);
         $this->call(BookSeeder::class);
-        BookPurchaseDetail::factory(25)->create();
+        $this->call(BookPurchaseDetailSeeder::class);
+        $this->call(OrderLineSeeder::class);
+        $this->call(CommentSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
