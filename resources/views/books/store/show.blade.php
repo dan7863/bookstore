@@ -71,10 +71,46 @@
               <div class = "grid grid-cols-1 lg:grid-cols-4">
                 <div class = "lg:col-span-2">
                   <!-- About This -->
-                  <div class = "flex flex-row mt-12">
+                  <div class = "flex flex-row mt-12" x-data="{ 'showModal': false}">
                     <h2 class = "text-2xl font-bold text-gray mr-6">About This Book</h2>
-                    <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
+                    <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer" 
+                    x-on:click="showModal = true">
                         <img src="{{ url('storage/project_images/right_arrow.png')}}" alt = "Right Arrow" class="w-4">
+                    </div>
+                      <div class="relative z-10" x-show="showModal"
+                      aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+                        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                            <div class="flex min-h-full items-end justify-center p-4
+                            text-center sm:items-center sm:p-0">
+                                <div class="relative transform overflow-hidden rounded-lg bg-white text-left
+                                shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg max-h-screen overflow-y-auto">
+                                    <!-- Set a maximum height equal to the screen height and enable overflow-y -->
+                                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                        <div class="sm:flex sm:items-start">
+                                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                                <h3 class="text-base font-semibold
+                                                leading-6 text-gray-900" id="modal-title">
+                                                    About This Book</h3>
+                                                <div class="mt-2">
+                                                  <p class = "text-gray-500">
+                                                    {{$book->description->description}}
+                                                  </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                        <button type="button" class="mt-3 inline-flex w-full justify-center
+                                        rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 
+                                        shadow-sm ring-1
+                                        ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                                x-on:click="showModal = false">Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                   </div>
                   @if(!empty($book->description))
@@ -90,8 +126,8 @@
              
                   @if(count($related_books_by_author) > 0)
                     <div>
-                      <div class = "flex flex-row mt-16 justify-center">
-                        <h2 class = "text-2xl font-bold text-gray mr-6 mb-6">More About {{$book->author->name}}</h2>
+                      <div class = "flex flex-row mt-16 justify-center mb-6">
+                        <h2 class = "text-2xl font-bold text-gray mr-6">More About {{$book->author->name}}</h2>
                         <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
                             <img src="{{ url('storage/project_images/right_arrow.png')}}"
                             alt = "Right Arrow" class="w-4">
@@ -110,8 +146,8 @@
                  
                   @if(count($related_books_by_subgenders) > 0)
                     <div>
-                      <div class = "flex flex-row mt-16 justify-center">
-                        <h2 class = "text-2xl font-bold text-gray mr-6 mb-6">Similar Content</h2>
+                      <div class = "flex flex-row mt-16 justify-center mb-6">
+                        <h2 class = "text-2xl font-bold text-gray mr-6 ">Similar Content</h2>
                         <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
                             <img src="{{ url('storage/project_images/right_arrow.png')}}"
                             alt = "Right Arrow" class="w-4">

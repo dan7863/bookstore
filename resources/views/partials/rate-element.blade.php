@@ -1,4 +1,4 @@
-<div class = "mt-16" x-data="{ 'showModal': false }">
+<div class = "mt-16" x-data="{ 'showModal': @if ($errors->any()) true @else false @endif }">
     <h2 class = "text-2xl font-bold text-gray mr-6 mt-2">Rate This Element</h2>
     <div class = "flex justify-between">
         @include('partials.starts', ['items_width' => 'w-10', 'items_height' => 'h-10',

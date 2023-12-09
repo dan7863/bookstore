@@ -91,6 +91,12 @@ class BookStoreController extends Controller
     }
 
     public function rateBook(Request $request, Book $book){
+
+        $request->validate([
+            'stars' => 'required',
+            'message' => 'required|max:500'
+        ]);
+
         Comment::create([
             'message' => $request->message,
             'stars' => $request->stars,

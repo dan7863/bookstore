@@ -23,7 +23,7 @@
 @endif
 
 @if($interactuable)
-    <div x-data="{ rating: 0 }" class="flex items-center {{ $margin_top }} {{ $justify_content }}">
+    <div x-data="{ rating: 1 }" class="flex items-center {{ $margin_top }} {{ $justify_content }}">
         <template x-for="star in [1, 2, 3, 4, 5]" :key="star">
             <svg x-on:click="rating = star" :class="{ 'text-blue-300': star <= rating,
             'text-gray-300 dark:text-gray-500': star > rating }"
