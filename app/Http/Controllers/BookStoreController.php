@@ -23,13 +23,10 @@ class BookStoreController extends Controller
         $books_release = Book::whereHas('new_book_releases', function ($query) use($firstDayOfMonth, $lastDayOfMonth){
             $query->where('first_of_month', $firstDayOfMonth)->where('last_of_month', $lastDayOfMonth);
         })->get();
-
         $most_purchases_per_month = Book::whereHas('most_purchases_per_month',
         function ($query) use($firstDayOfMonth, $lastDayOfMonth){
             $query->where('first_of_month', $firstDayOfMonth)->where('last_of_month', $lastDayOfMonth);
         })->get();
-
-       
         return view ('books.store.index', compact('books_release', 'most_purchases_per_month'));
     }
 
@@ -61,8 +58,7 @@ class BookStoreController extends Controller
         $buyed_book = OrderLine::whereHas('purchase_orders', function ($query) use ($bookId) {
             $query->where('book_id', $bookId);
         })->where('buyer_id', auth()->id())->exists();
-        
-        
+
         return view('books.store.show', [
             'book' => $book,
             'related_books_by_author' => $related_books_by_author,
@@ -101,7 +97,11 @@ class BookStoreController extends Controller
         ['title' => 'Subgender', 'item' => $subgender]);
     }
 
-    public function author(Author $author){
+    public function authorIndex(){
+        return view('books.store.authors');
+    }
+
+    public function authorShow(Author $author){
         return view('books.store.result-book-search',
         ['title' => 'Author', 'item' => $author,
         'input_placeholder' => 'Search through '.$author->name.'\'s books...']);
@@ -124,4 +124,6 @@ class BookStoreController extends Controller
 
         return redirect()->route('books_store.show', compact('book'));
     }
+
+  
 }

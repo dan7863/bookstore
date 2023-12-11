@@ -132,7 +132,7 @@
                     <div>
                       <div class = "flex flex-row mt-16 justify-center mb-6">
                         <h2 class = "text-2xl font-bold text-gray mr-6">More About {{$book->author->name}}</h2>
-                        <a href = "{{route('books_store.author', $book->author)}}">
+                        <a href = "{{route('books_store.author-show', $book->author)}}">
                           <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
                             <img src="{{ url('storage/project_images/right_arrow.png')}}"
                             alt = "Right Arrow" class="w-4">

@@ -20,7 +20,9 @@ Route::get('books/store/{book}', [BookStoreController::class, 'show'])->name('bo
 
 Route::get('subgender/{subgender}', [BookStoreController::class, 'subgender'])->name('books_store.subgender');
 
-Route::get('author/{author}', [BookStoreController::class, 'author'])->name('books_store.author');
+Route::get('authors', [BookStoreController::class, 'authorIndex'])->name('books_store.author-index');
+
+Route::get('author/{author}', [BookStoreController::class, 'authorShow'])->name('books_store.author-show');
 
 Route::post('books/store/rate/{book}', [BookStoreController::class, 'rateBook'])->name('books_store.rate-book');
 
