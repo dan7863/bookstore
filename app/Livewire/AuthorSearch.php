@@ -25,6 +25,7 @@ class AuthorSearch extends Component
             });
         })
         ->distinct()
+        ->orderBy('name', 'DESC')
         ->pluck('first_letter')
         ->toArray();
 
@@ -38,6 +39,7 @@ class AuthorSearch extends Component
                 $subQuery->where('available_state', 1);
             });
         })
+        ->orderBy('name', 'DESC')
         ->get();
 
         return view('livewire.author-search', ['alphabet' => $alphabet,

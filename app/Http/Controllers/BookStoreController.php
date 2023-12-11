@@ -94,7 +94,8 @@ class BookStoreController extends Controller
 
     public function subgender(Subgender $subgender){
         return view('books.store.result-book-search',
-        ['title' => 'Subgender', 'item' => $subgender]);
+        ['title' => 'Subgender', 'item' => $subgender,
+        'input_placeholder' => 'Search through '.$subgender->name.'\'s books...']);
     }
 
     public function authorIndex(){
@@ -105,6 +106,10 @@ class BookStoreController extends Controller
         return view('books.store.result-book-search',
         ['title' => 'Author', 'item' => $author,
         'input_placeholder' => 'Search through '.$author->name.'\'s books...']);
+    }
+
+    public function genderIndex(){
+        return view('books.store.genders');
     }
 
     public function rateBook(Request $request, Book $book){

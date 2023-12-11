@@ -24,5 +24,9 @@ class BookFilterSearch extends Component
             $books_search = $this->item->get_related_author($this->search);
             return view('livewire.book-filter-search', compact('books_search'));
         }
+        elseif(get_class($this->item) == "App\Models\Subgender"){
+            $books_search = $this->item->get_related_books($this->search);
+            return view('livewire.book-filter-search', compact('books_search'));
+        }
     }
 }

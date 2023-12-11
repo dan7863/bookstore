@@ -8,7 +8,9 @@
               <!-- Info Primary Content -->
               <div class = "lg:col-span-2">
                 <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{$book->title}}</h2>
-                <h4 class = "text-blue-500 my-4"><a href = "#">{{$book->author->name}}</a></h4>
+                <h4 class = "text-blue-500 my-4"><a href = "{{route('books_store.author-show', $book->author)}}">
+                  {{$book->author->name}}</a>
+                </h4>
                 <p class = "my-4 text-gray-700">
                   Launched on <span class = "font-bold text-gray-900">
                     {{date('d-M-y', strtotime($book->created_at))}}</span>

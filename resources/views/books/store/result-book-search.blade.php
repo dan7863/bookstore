@@ -14,6 +14,14 @@
                     <p class = "mt-8"><strong>{{$item->name}}</strong> {{$item->description->description}}</p>
                 </div>
             @endif
+
+            @if(get_class($item) == "App\Models\Subgender" && isset($item->description->description))
+                <div class = "mt-16">
+                    <h1 class = "bg-gray-900 rounded-md p-2 text-white text-center text-2xl font-bold text-white">
+                        {{$item->name}}'s Description</h1>
+                    <p class = "mt-8"><strong>{{$item->name}}</strong> {{$item->description->description}}</p>
+                </div>
+            @endif
         </div>
     </div>
 </x-app-layout>

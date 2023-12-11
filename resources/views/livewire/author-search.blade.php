@@ -17,18 +17,21 @@
         @endforeach
     </div>
     <div class = "mt-8">
-        <h1 class = "bg-gray-900 rounded-md p-1 text-white text-center text-2xl font-bold text-white">{{$char}}</h1>
         <div>
-            <ul class = "flex flex-wrap flex-row mt-4 list-disc m-8">
-                @if(count($authors) > 0)
-                    @foreach($authors as $author)
-                        <li class = "w-40">
-                            <a href = "{{route('books_store.author-show', $author)}}"
-                            class = "text-blue-500">{{$author->name}}</a>
-                        </li>
-                    @endforeach
-                @endif
-            </ul>
+            <h1 class = "bg-gray-900 rounded-t-md p-1 
+            text-white text-center text-2xl font-bold text-white">{{$char}}</h1>
+            <div class = "border-solid border">
+                <ul class = "flex flex-wrap flex-row mt-4 m-8">
+                    @if(count($authors) > 0)
+                        @foreach($authors as $author)
+                            <li class = "w-40">
+                                <a href = "{{route('books_store.author-show', $author)}}"
+                                class = "text-blue-500">{{$author->name}}</a>
+                            </li>
+                        @endforeach
+                    @endif
+                </ul>
+            </div>
         </div>
     </div>
 </div>
