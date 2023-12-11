@@ -22,11 +22,16 @@ class BookStoreController extends Controller
         $lastDayOfMonth = new DateTime($currentDate->format('Y-m-t'));
         $books_release = Book::whereHas('new_book_releases', function ($query) use($firstDayOfMonth, $lastDayOfMonth){
             $query->where('first_of_month', $firstDayOfMonth)->where('last_of_month', $lastDayOfMonth);
-        })->get();
+        
+        })
+        ->where('user_id', '<>', auth()->id())
+        ->get();
         $most_purchases_per_month = Book::whereHas('most_purchases_per_month',
         function ($query) use($firstDayOfMonth, $lastDayOfMonth){
             $query->where('first_of_month', $firstDayOfMonth)->where('last_of_month', $lastDayOfMonth);
-        })->get();
+        })
+        ->where('user_id', '<>', auth()->id())
+        ->get();
         return view ('books.store.index', compact('books_release', 'most_purchases_per_month'));
     }
 
