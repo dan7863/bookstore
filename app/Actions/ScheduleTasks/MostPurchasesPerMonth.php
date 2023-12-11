@@ -7,7 +7,7 @@ use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class MostPurchasesByMonth {
+class MostPurchasesPerMonth {
 
     public function __invoke(){
         try {
@@ -17,12 +17,17 @@ class MostPurchasesByMonth {
             $lastDayOfMonth = new DateTime($currentDate->format('Y-m-t'));
          
             $results = PurchaseOrder::select('book_id', DB::raw('COUNT(book_id) as purchases'))
+            ->whereHas('book', function($query){
+                $query->whereHas('book_purchase_detail', function($query2){
+                    $query2->where('available_state', 1);
+                });
+            })
             ->whereBetween('created_at', [$firstDayOfMonth, $lastDayOfMonth])
             ->groupBy('book_id')
             ->orderByDesc('purchases')
             ->limit(20)
             ->get();
-            
+
             $firstDayOfMonth = now()->firstOfMonth()->toDateString();
             $lastDayOfMonth = now()->lastOfMonth()->toDateString();
             if(!empty($results)){

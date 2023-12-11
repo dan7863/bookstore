@@ -39,7 +39,9 @@
                   </div>
                   <div class="border-t border-gray-200 pt-4 text-center">
                     <dt class="font-medium text-gray-900">
-                      @available_state($book->book_purchase_detail->available_state)
+                      @if(isset($book->book_purchase_detail->available_state))
+                        @available_state($book->book_purchase_detail->available_state)
+                      @endif
                     </dt>
                     <dd class="mt-2 text-sm text-gray-500">State</dd>
                   </div>
@@ -56,7 +58,9 @@
                 @if($buying_status)
                   <a class="mt-6 bg-blue-400 mt-4 hover:bg-blue-500
                   text-white font-bold py-2 px-4 border rounded" href = "{{route('books_store.process-order', $book)}}">
-                    Buy for @money($book->book_purchase_detail->price)
+                    @if(isset($book->book_purchase_detail->price))
+                      Buy for @money($book->book_purchase_detail->price)
+                    @endif
                   </a>
                 @else
                   <a class="mt-6 bg-blue-400 mt-4 hover:bg-blue-500
@@ -128,10 +132,12 @@
                     <div>
                       <div class = "flex flex-row mt-16 justify-center mb-6">
                         <h2 class = "text-2xl font-bold text-gray mr-6">More About {{$book->author->name}}</h2>
-                        <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
+                        <a href = "{{route('books_store.author', $book->author)}}">
+                          <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
                             <img src="{{ url('storage/project_images/right_arrow.png')}}"
                             alt = "Right Arrow" class="w-4">
-                        </div>
+                          </div>
+                        </a>
                       </div>
                       
                       <div>

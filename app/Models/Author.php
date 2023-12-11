@@ -29,4 +29,13 @@ class Author extends Model
     public function comments(){
         return $this->morphMany('App\Models\Comment', 'commentable');
     }
+
+    //Others
+
+    public function get_related_author($search) {
+        return Book::where('author_id', $this->id)
+        ->where('title', 'LIKE', '%'.$search.'%')
+        ->latest('id')
+        ->paginate(10);
+    }
 }

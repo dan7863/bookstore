@@ -33,9 +33,10 @@ class Subgender extends Model
         return Book::whereHas('subgenders', function ($query) {
                 $query->where('subgender_id', $this->id);
             })
-            ->whereHas('book_purchase_detail')
-            ->with('book_purchase_detail')
-            ->latest('id')
-            ->paginate(4);
+        ->whereHas('book_purchase_detail')
+        ->with('book_purchase_detail')
+        ->latest('id')
+        ->paginate(20);
     }
+
 }

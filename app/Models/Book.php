@@ -49,6 +49,14 @@ class Book extends Model
         return $this->belongsTo('App\Models\Publisher');
     }
 
+    public function most_purchases_per_month(){
+        return $this->hasMany('App\Models\MostPurchasePerMonth');
+    }
+
+    public function new_book_releases(){
+        return $this->hasMany('App\Models\NewBookRelease');
+    }
+
     //Many to many relation
     public function subgenders(){
         return $this->belongsToMany('App\Models\Subgender');

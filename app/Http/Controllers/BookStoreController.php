@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
 use App\Models\Comment;
 use App\Models\OrderLine;
-use App\Models\PurchaseOrder;
 use App\Models\Subgender;
+use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class BookStoreController extends Controller
 {
@@ -17,9 +17,20 @@ class BookStoreController extends Controller
      */
     public function index()
     {
-        $books = Book::has('book_purchase_detail')->with('book_purchase_detail')->get();
-        $subgenders = Subgender::all(['name', 'id']);
-        return view ('books.store.index', ['books' => $books, 'subgenders' => $subgenders]);
+        $currentDate = new DateTime();
+        $firstDayOfMonth = new DateTime($currentDate->format('Y-m-01'));
+        $lastDayOfMonth = new DateTime($currentDate->format('Y-m-t'));
+        $books_release = Book::whereHas('new_book_releases', function ($query) use($firstDayOfMonth, $lastDayOfMonth){
+            $query->where('first_of_month', $firstDayOfMonth)->where('last_of_month', $lastDayOfMonth);
+        })->get();
+
+        $most_purchases_per_month = Book::whereHas('most_purchases_per_month',
+        function ($query) use($firstDayOfMonth, $lastDayOfMonth){
+            $query->where('first_of_month', $firstDayOfMonth)->where('last_of_month', $lastDayOfMonth);
+        })->get();
+
+       
+        return view ('books.store.index', compact('books_release', 'most_purchases_per_month'));
     }
 
     /**
@@ -86,8 +97,14 @@ class BookStoreController extends Controller
     }
 
     public function subgender(Subgender $subgender){
-        $books = $subgender->get_related_books();
-        return view('books.store.subgender', compact('books', 'subgender'));
+        return view('books.store.result-book-search',
+        ['title' => 'Subgender', 'item' => $subgender]);
+    }
+
+    public function author(Author $author){
+        return view('books.store.result-book-search',
+        ['title' => 'Author', 'item' => $author,
+        'input_placeholder' => 'Search through '.$author->name.'\'s books...']);
     }
 
     public function rateBook(Request $request, Book $book){
