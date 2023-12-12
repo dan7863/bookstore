@@ -30,8 +30,10 @@
     <div class = "mt-12">
         {{$books_search->links()}}
     </div>
-    
-    
+
+    @if(count($books_search) == 0)
+        <h2>No entities were found by this criteria.</h2>
+    @endif
 </div>
   
 

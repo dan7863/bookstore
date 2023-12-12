@@ -47,6 +47,10 @@
               class="text-white rounded-md px-3 py-2 text-sm font-medium
               {{ request()->is('genders') ? 'bg-gray-900' : 'bg-gray-800' }}"
               aria-current="page">Genders</a>
+              <a href = "{{route('books_store.publisher-index')}}"
+              class="text-white rounded-md px-3 py-2 text-sm font-medium
+              {{ request()->is('publishers') ? 'bg-gray-900' : 'bg-gray-800' }}"
+              aria-current="page">Publishers</a>
             </div>
           </div>
           

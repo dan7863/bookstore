@@ -26,6 +26,10 @@ Route::get('author/{author}', [BookStoreController::class, 'authorShow'])->name(
 
 Route::get('genders', [BookStoreController::class, 'genderIndex'])->name('books_store.gender-index');
 
+Route::get('publishers', [BookStoreController::class, 'publisherIndex'])->name('books_store.publisher-index');
+
+Route::get('publisher/{publisher}', [BookStoreController::class, 'publisherShow'])->name('books_store.publisher-show');
+
 Route::post('books/store/rate/{book}', [BookStoreController::class, 'rateBook'])->name('books_store.rate-book');
 
 Route::middleware([

@@ -32,12 +32,13 @@ class Author extends Model
 
     //Others
 
-    public function get_related_author($search) {
+    public function get_related_books($search) {
         return Book::where('author_id', $this->id)
         ->whereHas('book_purchase_detail', function($query){
             $query->where('available_state', 1);
         })
         ->where('title', 'LIKE', '%'.$search.'%')
+        ->where('user_id', '<>', auth()->id())
         ->latest('id')
         ->paginate(10);
     }

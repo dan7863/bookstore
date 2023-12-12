@@ -20,11 +20,9 @@ class BookFilterSearch extends Component
     
     public function render()
     {
-        if(get_class($this->item) == "App\Models\Author"){
-            $books_search = $this->item->get_related_author($this->search);
-            return view('livewire.book-filter-search', compact('books_search'));
-        }
-        elseif(get_class($this->item) == "App\Models\Subgender"){
+        $class_item = get_class($this->item);
+        if($class_item == "App\Models\Author" || $class_item == "App\Models\Subgender"
+        || $class_item == "App\Models\Publisher"){
             $books_search = $this->item->get_related_books($this->search);
             return view('livewire.book-filter-search', compact('books_search'));
         }

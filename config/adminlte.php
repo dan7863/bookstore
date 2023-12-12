@@ -363,11 +363,6 @@ return [
                 ],
             ]
         ],
-        [
-            'text' => 'Payment Methods',
-            'route' => 'admin.payment-methods.index',
-            'icon' => 'fas fa-w fa-credit-card',
-        ],
     ],
 
     /*

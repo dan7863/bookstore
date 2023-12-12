@@ -6,6 +6,7 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Comment;
 use App\Models\OrderLine;
+use App\Models\Publisher;
 use App\Models\Subgender;
 use DateTime;
 use Illuminate\Http\Request;
@@ -63,7 +64,6 @@ class BookStoreController extends Controller
         $buyed_book = OrderLine::whereHas('purchase_orders', function ($query) use ($bookId) {
             $query->where('book_id', $bookId);
         })->where('buyer_id', auth()->id())->exists();
-
         return view('books.store.show', [
             'book' => $book,
             'related_books_by_author' => $related_books_by_author,
@@ -116,6 +116,17 @@ class BookStoreController extends Controller
     public function genderIndex(){
         return view('books.store.genders');
     }
+
+    public function publisherIndex(){
+        return view('books.store.publishers');
+    }
+
+    public function publisherShow(Publisher $publisher){
+        return view('books.store.result-book-search',
+        ['title' => 'Publisher', 'item' => $publisher,
+        'input_placeholder' => 'Search through '.$publisher->name.'\'s books...']);
+    }
+
 
     public function rateBook(Request $request, Book $book){
 

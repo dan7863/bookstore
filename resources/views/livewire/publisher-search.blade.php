@@ -1,7 +1,7 @@
 <div>
     <div class = "flex flex-wrap flex-row justify-center mt-8">
         @foreach($alphabet as $char_alphabet)
-            <div @if(in_array($char_alphabet, $author_alphabet)) wire:click="$set('char', '{{ $char_alphabet }}')"
+            <div @if(in_array($char_alphabet, $publisher_alphabet)) wire:click="$set('char', '{{ $char_alphabet }}')"
                     @if($char_alphabet == $char)
                         class = "w-20 text-center m-2 p-2 bg-gray-500
                         hover:bg-gray-700"
@@ -22,11 +22,11 @@
             text-white text-center text-2xl font-bold text-white">{{$char}}</h1>
             <div class = "border-solid border">
                 <ul class = "flex flex-wrap flex-row mt-4 m-8">
-                    @if(count($authors) > 0)
-                        @foreach($authors as $author)
+                    @if(count($publishers) > 0)
+                        @foreach($publishers as $publisher)
                             <li class = "w-40">
-                                <a href = "{{route('books_store.author-show', $author)}}"
-                                class = "text-blue-500">{{$author->name}}</a>
+                                <a href = "{{route('books_store.publisher-show', $publisher)}}"
+                                class = "text-blue-500">{{$publisher->name}}</a>
                             </li>
                         @endforeach
                     @endif
