@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Language extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
     public function books(){
         return $this->hasMany('App\Models\Book');

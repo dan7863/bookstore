@@ -63,7 +63,7 @@ class Book extends Model
     }
 
     public function types(){
-        return $this->belongsToMany('App\Models\Type');
+        return $this->belongsToMany('App\Models\Type')->withPivot('url');
     }
 
     //One to one polymorphic relation

@@ -25,7 +25,7 @@ class PublisherSearch extends Component
             });
         })
         ->distinct()
-        ->orderBy('name', 'DESC')
+        ->orderBy('name', 'ASC')
         ->pluck('first_letter')
         ->toArray();
 
@@ -39,7 +39,7 @@ class PublisherSearch extends Component
                 $subQuery->where('available_state', 1);
             });
         })
-        ->orderBy('name', 'DESC')
+        ->orderBy('name', 'ASC')
         ->get();
 
         return view('livewire.publisher-search', ['alphabet' => $alphabet,

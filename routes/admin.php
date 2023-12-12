@@ -18,6 +18,8 @@ Route::resource('subgenders', SubgenderController::class)->names('admin.subgende
 
 Route::resource('books', BookController::class)->names('admin.books');
 
+Route::get('books/read/{book}', [BookController::class, 'read'])->name('admin.books.read');
+
 Route::resource('book-purchase-details', BookPurchaseDetailController::class)->names('admin.book-purchase-details');
 
 Route::resource('authors', AuthorController::class)->names('admin.authors');

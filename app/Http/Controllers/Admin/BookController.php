@@ -8,7 +8,6 @@ use App\Models\BookPurchaseDetail;
 use App\Services\BookService;
 use Illuminate\Http\Request;
 
-
 class BookController extends Controller
 {
     /**
@@ -104,5 +103,11 @@ class BookController extends Controller
         }
 
         return view('admin.books.create', compact('ebook'));
+    }
+
+    public function read(Book $book)
+    {
+        
+        return view('admin.books.read', compact('book'));
     }
 }

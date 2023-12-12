@@ -31,7 +31,7 @@
                                 <div class="dropdown-menu position-absolute"
                                 id = "dropdown-menu-{{$book->id}}" aria-labelledby="icon-menu"
                                 style = "margin-top: -2.2rem; margin-left: -10rem;">
-                                    <a class="dropdown-item">
+                                    <a class="dropdown-item" href = "{{route('admin.books.read', $book)}}">
                                         <i class="fas fa-w fa-book-open"></i> Read
                                     </a>
                                     <a class="dropdown-item"

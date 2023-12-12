@@ -13,8 +13,10 @@ use App\Models\Publisher;
 use App\Models\Subgender;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Kiwilan\Ebook\Ebook;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class BookService
 {
@@ -77,18 +79,25 @@ class BookService
             $book->subgenders()->attach($subgenders);
         }
         $type = $this->getTypeId($request->format);
+        $url_file = 'ebooks/'.auth()->id().'/'.$request->file_name.$request->format;
         if(!empty($type)){
             $book->types()->attach(
                 [$type->id => [
-                    'url' => 'ebooks/'.auth()->id().'/'.$request->file_name.$request->format]
+                    'url' => $url_file]
                 ]
             );
         }
         $this->createProgressState($book->id);
-        $temporal_file_path = public_path('/storage/temporal/'.auth()->id().'/'.$request->file_name.$request->format);
-        if (file_exists($temporal_file_path)) {
-            unlink($temporal_file_path);
-        }
+        $temporal_file_path = storage_path('app/public/temporal/'.auth()->id()
+        .'/'.$request->file_name.$request->format);
+        chmod($temporal_file_path, 0777);
+        
+        $path = storage_path('app/public/ebooks/'.$auth_id);
+
+        !file_exists($path) ?  mkdir($path, 0777, true) : '';
+        
+        $url_file = storage_path('app/public/'.$url_file);
+        rename($temporal_file_path, $url_file);
     }
 
 
