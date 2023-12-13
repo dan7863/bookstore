@@ -12,6 +12,7 @@ class BookReader extends Component
     public $content;
     public $numberFile;
     public $css;
+    public $isImage = false;
 
     public function updatingSearch(){
         $this->resetPage();
@@ -29,19 +30,28 @@ class BookReader extends Component
             if($is_valid){
                 $ebook = Ebook::read($url);
                 $files = $ebook->getArchive()->getFiles();
-                foreach($files as $index => $file){
-                    if(str_contains($files[$index], '.css')){
-                        $this->css .= '<div>'.$ebook->getArchive()->getText($file).'</div>';
+                $css_files = $ebook->getArchive()->filter('.css');
+
+                if(!empty($css_files)){
+                    foreach($css_files as $index => $file){
+                        if(str_contains($css_files[$index], '.css')){
+                            $this->css .= '<div>'.$ebook->getArchive()->getText($file).'</div>';
+                        }
                     }
                 }
-                if(str_contains($files[$this->numberFile], 'jpg')
-                || str_contains($files[$this->numberFile], 'png')
-                || str_contains($files[$this->numberFile], 'jpeg')){
-                    $img = base64_encode($ebook->getArchive()->getContents($files[$this->numberFile]));
-                    $this->content = '<div class = "text-center"><img src = "data:image/png;base64,'.$img.'"></div>';
-                }
-                else{
-                    $this->content = '<div>'.$ebook->getArchive()->getText($files[$this->numberFile]).'</div>';
+                
+                if(isset($files[$this->numberFile])){
+                    if($files[$this->numberFile]->isImage()){
+                        $this->isImage = true;
+                        $img = base64_encode($ebook->getArchive()->getContents($files[$this->numberFile]));
+                        $this->content = '
+                        <div class = "text-center">
+                            <img class = "w-60" src = "data:image/png;base64,'.$img.'">
+                        </div>';
+                    }
+                    else{
+                        $this->content = '<div>'.$ebook->getArchive()->getText($files[$this->numberFile]).'</div>';
+                    }
                 }
             }
         }

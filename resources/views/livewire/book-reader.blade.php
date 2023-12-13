@@ -9,7 +9,7 @@
         
     </style>
     
-    <div style = "columns: 2; max-height: 100vh; line-height: 1.5">
+    <div style= "max-height: 100vh; min-height: 100vh; overflow: auto; p-2">
         @php echo $content @endphp
     </div>
 </div>
