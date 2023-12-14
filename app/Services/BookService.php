@@ -20,6 +20,7 @@ use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class BookService
 {
+
     public function processFile($url){
         $is_valid = Ebook::isValid($url);
         if($is_valid){
@@ -90,12 +91,11 @@ class BookService
         $this->createProgressState($book->id);
         $temporal_file_path = storage_path('app/public/temporal/'.auth()->id()
         .'/'.$request->file_name.$request->format);
-        chmod($temporal_file_path, 0777);
+        chmod($temporal_file_path, 0755);
         
         $path = storage_path('app/public/ebooks/'.$auth_id);
 
-        !file_exists($path) ?  mkdir($path, 0777, true) : '';
-        
+        !file_exists($path) ?  mkdir($path, 0755, true) : '';
         $url_file = storage_path('app/public/'.$url_file);
         rename($temporal_file_path, $url_file);
     }
@@ -184,5 +184,25 @@ class BookService
             }
         }
         return $type;
+    }
+
+    public function saveTemporalFile(Request $request){
+        $auth_id = auth()->id();
+        $file = $request->file('file');
+        $path = storage_path('app/public/temporal/'.$auth_id);
+        $exists = false;
+        !file_exists($path) ?  mkdir($path, 0755, true) : '';
+        $current_path = $file->storeAs('temporal/'.$auth_id, $file->getClientOriginalName(), 'public');
+        $ebook = $this->processFile(public_path('/storage/'.$current_path));
+        $book_validation = Book::where('user_id', $auth_id)->where('title', $ebook['title'])->first();
+        if(!empty($book_validation)){
+            $temporal_file_path = public_path('/storage/'.$current_path);
+            if (file_exists($temporal_file_path)) {
+                unlink($temporal_file_path);
+            }
+            $exists = true;
+        }
+
+        return ['ebook' => $ebook, 'exists' => $exists];
     }
 }

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Gender;
 use Illuminate\Http\Request;
+use App\Traits\Cacheable;
 
 class GenderController extends Controller
 {
+    use Cacheable;
     /**
      * Display a listing of the resource.
      */
@@ -36,6 +38,7 @@ class GenderController extends Controller
             'slug' => 'required|unique:genders'
         ]);
         Gender::create($request->all());
+        $this->forgetCache('gendersCount');
         return redirect()->route('admin.genders.index')
         ->with('info', $request->name . ' Gender has been successfully added.');
     }
@@ -78,7 +81,7 @@ class GenderController extends Controller
     public function destroy(Gender $gender)
     {
         $gender->delete();
-
+        $this->forgetCache('gendersCount');
         return redirect()->route('admin.genders.index')
         ->with('info', $gender->name . ' Gender has been successfully deleted.');
     }

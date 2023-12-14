@@ -7,9 +7,11 @@ use App\Models\Book;
 use App\Models\BookPurchaseDetail;
 use App\Services\BookService;
 use Illuminate\Http\Request;
+use App\Traits\Cacheable;
 
 class BookController extends Controller
 {
+    use Cacheable;
     /**
      * Display a listing of the resource.
      */
@@ -34,6 +36,7 @@ class BookController extends Controller
     {
         $book_service = new BookService();
         $book_service->createBook($request);
+        $this->flushCache();
         return redirect()->route('admin.books.index')
         ->with('info', $request->title . ' Book has been successfully loaded.');
     }
@@ -77,6 +80,8 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
+        $this->flushCache();
+     
         return redirect()->route('admin.books.index')
         ->with('info', $book->title . ' Book has been successfully deleted.');
     }
@@ -85,24 +90,14 @@ class BookController extends Controller
         $request->validate([
             'file' => 'required|file|mimetypes:application/epub+zip,application/zip|max:10240',
         ]);
-        $auth_id = auth()->id();
-        $file = $request->file('file');
-        $path = storage_path('app/public/temporal/'.$auth_id);
-        !file_exists($path) ?  mkdir($path, 0755, true) : '';
-        $current_path = $file->storeAs('temporal/'.$auth_id, $file->getClientOriginalName(), 'public');
         $book_service = new BookService;
-        $ebook = $book_service->processFile(public_path('/storage/'.$current_path));
-        $book_validation = Book::where('user_id', $auth_id)->where('title', $ebook['title'])->first();
-        if(!empty($book_validation)){
-            $temporal_file_path = public_path('/storage/'.$current_path);
-            if (file_exists($temporal_file_path)) {
-                unlink($temporal_file_path);
-            }
+        $result = $book_service->saveTemporalFile($request);
+        if($result['exists']){
             return redirect()->route('admin.books.index')
-            ->with('error', $ebook['title'] . ' Book is Already Loaded.');
+            ->with('error', $result['ebook']['title'] . ' Book is Already Loaded.');
         }
-
-        return view('admin.books.create', compact('ebook'));
+        
+        return view('admin.books.create', ['ebook' => $result['ebook']]);
     }
 
     public function read(Book $book)

@@ -35,7 +35,7 @@
                                         <i class="fas fa-w fa-book-open"></i> Read
                                     </a>
                                     <a class="dropdown-item"
-                                        href = "{{route('admin.books.show', $book)}}">
+                                        href = "{{ route('admin.books.show', ['book' => $book, 'type' => $type]) }}">
                                         <i class="fas fa-w fa-info-circle"></i> About This
                                     </a>
                                     @if($type == 'books')
@@ -43,15 +43,18 @@
                                             <i class="fas fa-w fa-check"></i> Marked as Finished
                                         </a>
                                     @endif
-                                    <a class="dropdown-item"
-                                        href = "{{route('admin.books.edit', $book)}}">
-                                        <i class="fas fa-w fa-dollar-sign"></i>
-                                        {{$type == 'books' ? 'Place for Sale' : 'Edit Purchase Detail'}}
-                                    </a>
+                                    @if($type != 'purchase-orders')
+                                        <a class="dropdown-item"
+                                            href = "{{route('admin.books.edit', $book)}}">
+                                            <i class="fas fa-w fa-dollar-sign"></i>
+                                            {{$type == 'book-purchase-details' ? 'Edit Purchase Detail' 
+                                            : 'Place for Sale'}}
+                                        </a>
+                                    @endif
                                     <a class="dropdown-item">
                                         <i class="fas fa-w fa-file-export"></i> Export
                                     </a>
-                                    @if($type == 'books')
+                                    @if($type != 'purchase-orders')
                                         <a class="dropdown-item">
                                             <form action = "{{route('admin.books.destroy', $book)}}" method = "POST">
                                                 @csrf

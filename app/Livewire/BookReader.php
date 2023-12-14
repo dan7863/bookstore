@@ -24,6 +24,7 @@ class BookReader extends Component
         if(empty($this->numberFile)){
             $this->numberFile = 0;
         }
+      
         foreach ($book_types as $b_type) {
             $url = storage_path('app/public/'.$b_type->pivot->url);
             $is_valid = Ebook::isValid($url);

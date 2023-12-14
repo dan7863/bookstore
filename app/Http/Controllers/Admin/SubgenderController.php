@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Gender;
 use App\Models\Subgender;
 use Illuminate\Http\Request;
+use App\Traits\Cacheable;
 
 class SubgenderController extends Controller
 {
+    use Cacheable;
     /**
      * Display a listing of the resource.
      */
@@ -39,7 +41,7 @@ class SubgenderController extends Controller
        ]);
 
        Subgender::create($request->all());
-
+       $this->forgetCache('subgendersCount');
        return redirect()->route('admin.subgenders.index')
        ->with('info', $request->name . ' Subgender has been successfully added.');
     }

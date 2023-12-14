@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Author;
 use Illuminate\Http\Request;
+use App\Traits\Cacheable;
 
 class AuthorController extends Controller
 {
+    use Cacheable;
     /**
      * Display a listing of the resource.
      */
@@ -36,6 +38,7 @@ class AuthorController extends Controller
             'slug' => 'required|unique:authors'
         ]);
         Author::create($request->all());
+        $this->forgetCache('authorsCount');
         return redirect()->route('admin.authors.index')
         ->with('info', $request->name . ' Author has been successfully added.');
     }
@@ -78,7 +81,7 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         $author->delete();
-
+        $this->forgetCache('authorsCount');
         return redirect()->route('admin.authors.index')
         ->with('info', $author->name . ' Author has been successfully deleted.');
     }

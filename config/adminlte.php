@@ -354,7 +354,7 @@ return [
                 [
                     'text' => 'Purchases',
                     'icon' => 'fas fa-w fa-shopping-cart',
-                    'url' => '#'
+                    'route' => 'admin.purchase-orders.index'
                 ],
                 [
                     'text' => 'Selling',

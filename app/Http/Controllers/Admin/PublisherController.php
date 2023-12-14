@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
+use App\Traits\Cacheable;
 
 class PublisherController extends Controller
 {
+    use Cacheable;
     /**
      * Display a listing of the resource.
      */
@@ -36,6 +38,7 @@ class PublisherController extends Controller
             'slug' => 'required|unique:publishers'
         ]);
         Publisher::create($request->all());
+        $this->forgetCache('publishersCount');
         return redirect()->route('admin.publishers.index')
         ->with('info', $request->name . ' Publisher has been successfully added.');
     }
@@ -78,7 +81,7 @@ class PublisherController extends Controller
     public function destroy(Publisher $publisher)
     {
         $publisher->delete();
-
+        $this->forgetCache('publishersCount');
         return redirect()->route('admin.publishers.index')
         ->with('info', $publisher->name . ' Publisher has been successfully deleted.');
     }

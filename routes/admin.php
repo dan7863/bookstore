@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\BookPurchaseDetailController;
 use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\PaymentMethodController;
+use App\Http\Controllers\PurchaseOrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('', [HomeController::class, 'index'])->name('admin.home');
@@ -21,6 +22,8 @@ Route::resource('books', BookController::class)->names('admin.books');
 Route::get('books/read/{book}', [BookController::class, 'read'])->name('admin.books.read');
 
 Route::resource('book-purchase-details', BookPurchaseDetailController::class)->names('admin.book-purchase-details');
+
+Route::resource('purchase-orders', PurchaseOrderController::class)->names('admin.purchase-orders');
 
 Route::resource('authors', AuthorController::class)->names('admin.authors');
 
