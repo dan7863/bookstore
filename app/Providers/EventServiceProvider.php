@@ -6,6 +6,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Models\Book;
+use App\Observers\BookObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,14 +20,20 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        [
+            'App\Models\Book' => [
+                'App\Observers\BookObserver',
+            ],
+        ],
     ];
+    
 
     /**
      * Register any events for your application.
      */
     public function boot(): void
     {
-        //
+        Book::observe(BookObserver::class);
     }
 
     /**
