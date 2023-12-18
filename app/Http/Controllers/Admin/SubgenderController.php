@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubgenderRequest;
 use App\Models\Gender;
 use App\Models\Subgender;
 use Illuminate\Http\Request;
@@ -32,14 +33,8 @@ class SubgenderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SubgenderRequest $request)
     {
-       $request->validate([
-            'name' => 'required',
-            'slug' => 'required|unique:subgenders',
-            'gender_id' => 'required'
-       ]);
-
        Subgender::create($request->all());
        $this->forgetCache('subgendersCount');
        return redirect()->route('admin.subgenders.index')
@@ -66,14 +61,8 @@ class SubgenderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subgender $subgender)
+    public function update(SubgenderRequest $request, Subgender $subgender)
     {
-        $request->validate([
-            'name' => 'required',
-            'slug' => "required|unique:subgenders,slug,$subgender->id",
-            'gender_id' => 'required'
-       ]);
-
        $subgender->update($request->all());
 
        return redirect()->route('admin.subgenders.index', $subgender)

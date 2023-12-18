@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GenderRequest;
 use App\Models\Gender;
 use Illuminate\Http\Request;
 use App\Traits\Cacheable;
@@ -31,12 +32,8 @@ class GenderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(GenderRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'slug' => 'required|unique:genders'
-        ]);
         Gender::create($request->all());
         $this->forgetCache('gendersCount');
         return redirect()->route('admin.genders.index')
@@ -62,13 +59,8 @@ class GenderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Gender $gender)
+    public function update(GenderRequest $request, Gender $gender)
     {
-        $request->validate([
-            'name' => 'required',
-            'slug' => "required|unique:genders,slug,$gender->id"
-        ]);
-        
         $gender->update($request->all());
 
         return redirect()->route('admin.genders.index')
