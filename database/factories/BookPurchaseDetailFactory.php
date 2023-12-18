@@ -21,7 +21,7 @@ class BookPurchaseDetailFactory extends Factory
             'signatory' => $this->faker->name,
             'price' => $this->faker->randomFloat(3, 5000, 200000),
             'available_state' => $this->faker->numberBetween(0, 1),
-            'book_id' => Book::all()->random()->id
+            'book_id' => $this->faker->unique()->numberBetween(1, Book::all()->count())
         ];
     }
 }

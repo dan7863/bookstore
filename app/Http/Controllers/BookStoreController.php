@@ -57,6 +57,8 @@ class BookStoreController extends Controller
      */
     public function show(Book $book)
     {
+        $this->authorize('available', $book);
+        
         $related_books_by_author = $book->get_related_books_by_author();
         $related_books_by_subgenders = $book->get_related_books_by_subgenders();
         $own_book = $book->user->id == auth()->id();

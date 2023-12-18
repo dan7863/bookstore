@@ -46,6 +46,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
+        $this->authorize('userOrPurchased', $book);
         return view('admin.books.show', compact('book'));
     }
 
@@ -54,6 +55,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
+        $this->authorize('user', $book);
         return view('admin.books.edit', compact('book'));
     }
 
@@ -62,6 +64,7 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
+        $this->authorize('user', $book);
         $request->merge(['book_id' => $book->id]);
         $book_purchase_detail = BookPurchaseDetail::where('book_id', $book->id)->first();
         if($book_purchase_detail){
@@ -79,6 +82,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
+        $this->authorize('user', $book);
         $book->delete();
         $this->flushCache();
      
@@ -102,7 +106,7 @@ class BookController extends Controller
 
     public function read(Book $book)
     {
-        
+        $this->authorize('userOrPurchased', $book);
         return view('admin.books.read', compact('book'));
     }
 }
