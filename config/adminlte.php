@@ -315,31 +315,43 @@ return [
             'text'        => 'Dashboard',
             'route'         => 'admin.home',
             'icon'        => 'fas fa-tachometer-alt fa-w',
+            'can' => 'admin.home'
         ],
-        ['header' => 'ADMINISTRATOR'],
+        // ['header' => 'ADMINISTRATOR', 'can' =>  auth()->user()->hasRole('Admin')],
+        [
+            'text' => 'Users',
+            'route'  => 'admin.users.index',
+            'icon' => 'fas fa-users fa-w',
+            'active' => ['admin/genders*'],
+            'can' => 'admin.users.index'
+        ],
         [
             'text' => 'Genders',
             'route'  => 'admin.genders.index',
             'icon' => 'fas fa-fw fa-tags',
-            'active' => ['admin/genders*']
+            'active' => ['admin/genders*'],
+            'can' => 'admin.genders.index'
         ],
         [
             'text' => 'Subgenders',
             'route' => 'admin.subgenders.index',
             'icon' => 'fab fa-fw fa-buffer',
-            'active' => ['admin/subgenders*']
+            'active' => ['admin/subgenders*'],
+            'can' => 'admin.subgenders.index'
         ],
         [
             'text' => 'Authors',
             'route' => 'admin.authors.index',
             'icon' => 'fas fa-fw fa-pen',
-            'active' => ['admin/authors*']
+            'active' => ['admin/authors*'],
+            'can' => 'admin.authors.index'
         ],
         [
             'text' => 'Publishers',
             'route' => 'admin.publishers.index',
             'icon' => 'fas fa-fw fa-building',
             'active' => ['admin/publishers*'],
+            'can' => 'admin.publishers.index'
         ],
         ['header' => 'PERSONAL OPTIONS'],
         [
@@ -350,6 +362,7 @@ return [
                     'text' => 'Loads',
                     'icon' => 'fas fa-w fa-upload',
                     'route' => 'admin.books.index',
+                    'can' => 'admin.books.index'
                 ],
                 [
                     'text' => 'Purchases',

@@ -44,12 +44,14 @@
                                         </a>
                                     @endif
                                     @if($type != 'purchase-orders')
+                                        @can('admin.books.edit')
                                         <a class="dropdown-item"
                                             href = "{{route('admin.books.edit', $book)}}">
                                             <i class="fas fa-w fa-dollar-sign"></i>
-                                            {{$type == 'book-purchase-details' ? 'Edit Purchase Detail' 
+                                            {{$type == 'book-purchase-details' ? 'Edit Purchase Detail'
                                             : 'Place for Sale'}}
                                         </a>
+                                        @endcan
                                     @endif
                                     <a class="dropdown-item">
                                         <i class="fas fa-w fa-file-export"></i> Export

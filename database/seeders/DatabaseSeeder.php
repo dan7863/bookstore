@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
 
         //Initial Seeders
+        $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(AuthorSeeder::class);
         Publisher::factory(4)->create();
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BookPurchaseDetailSeeder::class);
         $this->call(OrderLineSeeder::class);
         $this->call(CommentSeeder::class);
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
