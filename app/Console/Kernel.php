@@ -14,8 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->call(new NewBookReleases)->everyMinute();
-        $schedule->call(new MostPurchasesPerMonth)->everyMinute();
+        $schedule->call(new NewBookReleases)->monthly();
+        $schedule->call(new MostPurchasesPerMonth)->monthly();
         // ->lastDayOfMonth('15:00');
     }
 
