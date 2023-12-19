@@ -9,6 +9,12 @@ class Subgender extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'slug', 'gender_id'];
+
+    public function getRouteKeyName(){
+        return "slug";
+    }
+
     public function gender(){
         return $this->belongsTo('App\Models\Gender');
     }
@@ -23,13 +29,15 @@ class Subgender extends Model
 
     //Others
 
-    public function get_related_books() {
-        return Book::whereHas('subgenders', function ($query) {
-                $query->where('subgender_id', $this->id);
+    public function get_related_books($search) {
+        return Book::whereHas('subgenders', function ($query) use($search) {
+                $query->where('subgender_id', $this->id)->where('name', 'LIKE', '%'.$search.'%');
             })
-            ->whereHas('book_purchase_detail')
-            ->with('book_purchase_detail')
-            ->latest('id')
-            ->paginate(4);
+        ->where('user_id', '<>', auth()->id())
+        ->whereHas('book_purchase_detail')
+        ->with('book_purchase_detail')
+        ->latest('id')
+        ->paginate(20);
     }
+
 }

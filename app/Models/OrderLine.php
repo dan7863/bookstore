@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class OrderLine extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
     public function order_invoice(){
-        $this->hasOne('App\Models\OrderInvoice');
+        return $this->hasOne('App\Models\OrderInvoice');
     }
 
     public function purchase_orders(){
-        $this->hasMany('App\Models\PurchaseOrder');
+        return $this->hasMany('App\Models\PurchaseOrder');
     }
 
     public function user(){

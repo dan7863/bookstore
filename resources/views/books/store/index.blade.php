@@ -14,17 +14,8 @@
   ```
 -->
 
-<div class="bg-white">
-  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-    @include('partials.filter')
-    <h2 class="text-2xl font-bold tracking-tight text-gray-900">Books List</h2>
-    <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-        @foreach($books as $book)
-          @include('partials.books.book', ['book' => $book])
-        @endforeach
-    </div>
-  </div>
-</div>
-
+@include('books.store.general-filter')
+@include('partials.books.block', ['title' => 'Most Purchases per Month', 'books' => $most_purchases_per_month])
+@include('partials.books.block', ['title' => 'New Book Releases', 'books' => $books_release])
   
 </x-app-layout>

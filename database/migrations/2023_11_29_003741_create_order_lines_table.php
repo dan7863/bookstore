@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('order_lines', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('quantity');
-            $table->unsignedDecimal('total_amount', $precision = 11, $places = 3);
+            $table->string('session_id');
             $table->unsignedBigInteger('buyer_id');
             $table->foreign('buyer_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

@@ -13,7 +13,9 @@
             <!-- Token Name -->
             <div class="col-span-6 sm:col-span-4">
                 <x-label for="name" value="{{ __('Token Name') }}" />
-                <x-input id="name" type="text" class="mt-1 block w-full" wire:model="createApiTokenForm.name" autofocus />
+                <x-input id="name" type="text"
+                class="mt-1 block w-full"
+                wire:model="createApiTokenForm.name" autofocus />
                 <x-input-error for="name" class="mt-2" />
             </div>
 
@@ -76,12 +78,16 @@
                                     @endif
 
                                     @if (Laravel\Jetstream\Jetstream::hasPermissions())
-                                        <button class="cursor-pointer ms-6 text-sm text-gray-400 underline" wire:click="manageApiTokenPermissions({{ $token->id }})">
+                                        <button
+                                        class="cursor-pointer ms-6 text-sm text-gray-400 underline"
+                                        wire:click="manageApiTokenPermissions({{ $token->id }})">
                                             {{ __('Permissions') }}
                                         </button>
                                     @endif
 
-                                    <button class="cursor-pointer ms-6 text-sm text-red-500" wire:click="confirmApiTokenDeletion({{ $token->id }})">
+                                    <button
+                                        class="cursor-pointer ms-6 text-sm text-red-500"
+                                        wire:click="confirmApiTokenDeletion({{ $token->id }})">
                                         {{ __('Delete') }}
                                     </button>
                                 </div>

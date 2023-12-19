@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class PurchaseOrder extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
-    public function orderline(){
+    public function order_line(){
         return $this->belongsTo('App\Models\OrderLine');
     }
 

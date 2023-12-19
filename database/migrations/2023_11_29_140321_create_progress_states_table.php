@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('progress_states', function (Blueprint $table) {
-            $table->enum('reading_state', ['Not Started', 'Ongoing', 'Completed']);
+            $table->enum('reading_state', ['Not Started', 'Ongoing', 'Completed'])->default('Not Started');
             $table->unsignedInteger('page_count')->nullable()->default(0);
             $table->unsignedBigInteger('progress_stateable_id');
             $table->string('progress_stateable_type');
