@@ -18,7 +18,7 @@ class PublisherSearch extends Component
     public function render()
     {
         $alphabet = range('A', 'Z');
-        $publisher_alphabet = publisher::select(DB::raw('UPPER(SUBSTRING(name, 1, 1)) as first_letter'))
+        $publisher_alphabet = publisher::select(DB::raw('UPPER(SUBSTRING(name, 1, 1)) as first_letter, name'))
         ->whereHas('books', function ($query) {
             $query->whereHas('book_purchase_detail', function ($subQuery) {
                 $subQuery->where('available_state', 1);
