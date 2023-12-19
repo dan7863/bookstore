@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\BookPurchaseDetailController;
 use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\PaymentMethodController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\PurchaseOrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\Admin\UserController;
 Route::get('', [HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
 Route::resource('users', UserController::class)->names('admin.users');
+
+Route::resource('roles', RoleController::class)->names('admin.roles');
 
 Route::resource('genders', GenderController::class)->names('admin.genders');
 

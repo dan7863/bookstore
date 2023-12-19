@@ -322,8 +322,15 @@ return [
             'text' => 'Users',
             'route'  => 'admin.users.index',
             'icon' => 'fas fa-users fa-w',
-            'active' => ['admin/genders*'],
+            'active' => ['admin/users*'],
             'can' => 'admin.users.index'
+        ],
+        [
+            'text' => 'Roles',
+            'route'  => 'admin.roles.index',
+            'icon' => 'fas fa-users-cog fa-w',
+            'active' => ['admin/roles*'],
+          
         ],
         [
             'text' => 'Genders',
