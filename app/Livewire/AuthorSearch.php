@@ -18,7 +18,7 @@ class AuthorSearch extends Component
     public function render()
     {
         $alphabet = range('A', 'Z');
-        $author_alphabet = Author::select(DB::raw('UPPER(SUBSTRING(name, 1, 1)) as first_letter'))
+        $author_alphabet = Author::select(DB::raw('UPPER(SUBSTRING(name, 1, 1)) as first_letter, name'))
         ->whereHas('books', function ($query) {
             $query->whereHas('book_purchase_detail', function ($subQuery) {
                 $subQuery->where('available_state', 1);
