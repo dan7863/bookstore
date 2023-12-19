@@ -18,7 +18,7 @@ class GenderSearch extends Component
     public function render()
     {
         $alphabet = range('A', 'Z');
-        $gender_alphabet = Gender::select(DB::raw('UPPER(SUBSTRING(name, 1, 1)) as first_letter'))
+        $gender_alphabet = Gender::select(DB::raw('UPPER(SUBSTRING(name, 1, 1)) as first_letter, name'))
         ->distinct()
         ->orderBy('name', 'ASC')
         ->pluck('first_letter')
