@@ -26,6 +26,14 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.users.edit',
         'description' => 'Assign a Role'])->assignRole($role1);
 
+        Permission::create(['name' => 'admin.roles.index',
+        'description' => 'See roles List'])->assignRole($role1);
+        Permission::create(['name' => 'admin.roles.edit',
+        'description' => 'Edit a Role'])->assignRole($role1);
+        Permission::create(['name' => 'admin.roles.destroy',
+        'description' => 'Delete a Role'])->assignRole($role1);
+
+
         Permission::create(['name' => 'admin.genders.index',
         'description' => 'See Genders List'])->assignRole($role1);
         Permission::create(['name' => 'admin.genders.create',

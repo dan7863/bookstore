@@ -315,7 +315,6 @@ return [
             'text'        => 'Dashboard',
             'route'         => 'admin.home',
             'icon'        => 'fas fa-tachometer-alt fa-w',
-            'can' => 'admin.home'
         ],
         // ['header' => 'ADMINISTRATOR', 'can' =>  auth()->user()->hasRole('Admin')],
         [
@@ -330,7 +329,7 @@ return [
             'route'  => 'admin.roles.index',
             'icon' => 'fas fa-users-cog fa-w',
             'active' => ['admin/roles*'],
-          
+            'can' => 'admin.roles.index'
         ],
         [
             'text' => 'Genders',

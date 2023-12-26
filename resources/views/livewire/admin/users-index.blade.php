@@ -23,7 +23,9 @@
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>
+                                @can('admin.users.edit')
                                 <a class = "btn btn-primary" href = "{{route('admin.users.edit', $user)}}">Edit</a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
