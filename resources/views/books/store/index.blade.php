@@ -15,7 +15,15 @@
 -->
 
 @include('books.store.general-filter')
-@include('partials.books.block', ['title' => 'Most Purchases per Month', 'books' => $most_purchases_per_month])
-@include('partials.books.block', ['title' => 'New Book Releases', 'books' => $books_release])
+
+@if(count($most_purchases_per_month) > 0)
+  @include('partials.books.block', ['title' => 'Most Purchases per Month', 'books' => $most_purchases_per_month])
+@endif
+
+@if(count($books_release) > 0)
+  @include('partials.books.block', ['title' => 'New Book Releases', 'books' => $books_release])
+@endif
+
+
   
 </x-app-layout>

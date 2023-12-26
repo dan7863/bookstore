@@ -25,14 +25,14 @@ class BooksIndex extends Component
     {
         switch($this->type){
             case $this->type == 'book-purchase-details':
-                $books = Book::where('user_id', auth()->user()->id)
+                $books = Book::with('author')->with('image')->where('user_id', auth()->user()->id)
                 ->where('title', 'LIKE', '%'.$this->search.'%')
                 ->has('book_purchase_detail')
                 ->with('book_purchase_detail')->latest()->paginate(10);
                
             break;
             case $this->type == 'purchase-orders':
-                $books = Book::whereHas('purchase_orders', function($query){
+                $books = Book::with('author')->with('image')->whereHas('purchase_orders', function($query){
                     $query->whereHas('order_line', function ($subquery){
                         $subquery->where('buyer_id', auth()->id());
                     });
@@ -41,7 +41,7 @@ class BooksIndex extends Component
                 ->latest()->paginate(10);
             break;
             default:
-                $books = Book::where('user_id', auth()->user()->id)
+                $books = Book::with('author')->with('image')->where('user_id', auth()->user()->id)
                 ->where('title', 'LIKE', '%'.$this->search.'%')
                 ->whereDoesntHave('book_purchase_detail')->latest()->paginate(10);
         }

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\BookPurchaseDetail;
 use App\Models\Comment;
 use App\Models\OrderLine;
 use App\Models\Publisher;
 use App\Models\Subgender;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 
@@ -25,12 +27,32 @@ class BookStoreController extends Controller
             $query->where('first_of_month', $firstDayOfMonth)->where('last_of_month', $lastDayOfMonth);
         
         })
+        ->with('book_purchase_detail')
+        ->with('image')
         ->where('user_id', '<>', auth()->id())
         ->get();
+
+        if(count($books_release) == 0){
+            $books_release = Book::whereHas('book_purchase_detail', function ($query){
+                $query->select('book_id')->where('available_state', 1)
+                ->whereBetween('created_at', [
+                    Carbon::now()->startOfMonth(),
+                    Carbon::now()->endOfMonth()
+                ]);
+            })
+            ->with('book_purchase_detail')
+            ->with('image')
+            ->where('user_id', '<>', auth()->id())
+            ->take(100)->get();
+        }
+
+        
         $most_purchases_per_month = Book::whereHas('most_purchases_per_month',
         function ($query) use($firstDayOfMonth, $lastDayOfMonth){
             $query->where('first_of_month', $firstDayOfMonth)->where('last_of_month', $lastDayOfMonth);
         })
+        ->with('book_purchase_detail')
+        ->with('image')
         ->where('user_id', '<>', auth()->id())
         ->get();
         return view ('books.store.index', compact('books_release', 'most_purchases_per_month'));
@@ -129,7 +151,6 @@ class BookStoreController extends Controller
         'input_placeholder' => 'Search through '.$publisher->name.'\'s books...']);
     }
 
-
     public function rateBook(Request $request, Book $book){
 
         $request->validate([
@@ -147,6 +168,4 @@ class BookStoreController extends Controller
 
         return redirect()->route('books_store.show', compact('book'));
     }
-
-  
 }

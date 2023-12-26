@@ -17,7 +17,7 @@ class SubgenderController extends Controller
      */
     public function index()
     {
-        $subgenders = Subgender::all();
+        $subgenders = Subgender::with('gender')->get();
         return view('admin.subgenders.index', compact('subgenders'));
     }
 

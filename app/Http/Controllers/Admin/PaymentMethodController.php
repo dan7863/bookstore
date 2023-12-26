@@ -9,6 +9,7 @@ use App\Models\OrderLine;
 use App\Models\PaymentMethod;
 use App\Models\PurchaseOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Stripe\Stripe;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -151,6 +152,8 @@ class PaymentMethodController extends Controller
             'order_line_id' => $order_line->id
         ]);
         
-        return redirect($stripe->invoices->retrieve($session->invoice)->hosted_invoice_url);
+        //Invoice url: $stripe->invoices->retrieve($session->invoice)->hosted_invoice_url
+        return redirect()->route('books_store.show', Book::find($session->metadata->book_id))
+        ->with('invoice_url', $stripe->invoices->retrieve($session->invoice)->hosted_invoice_url);
     }
 }
