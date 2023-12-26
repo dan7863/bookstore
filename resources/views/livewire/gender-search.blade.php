@@ -24,10 +24,10 @@
                 <div>
                     <div  x-on:click="openTab = (openTab === {{$index+1}}) ? 0 : 1"
                     @if(count($gender->subgenders) > 0)
-                        :class="openTab ? 'bg-gray-900 rounded-t-md rounded-b-none p-1 text-white text-left text-2xl font-bold text-white flex flex-wrap flex-row p-2 justify-between cursor-pointer' : 'bg-gray-900 rounded-md p-1 text-white text-left text-2xl font-bold text-white flex flex-wrap flex-row p-2 justify-between cursor-pointer'"
+                        :class="openTab ? 'bg-gray-900 rounded-t-md mt-4 rounded-b-none p-1 text-white text-left text-2xl font-bold text-white flex flex-wrap flex-row p-2 justify-between cursor-pointer' : 'bg-gray-900 rounded-md p-1 text-white text-left text-2xl font-bold text-white flex flex-wrap flex-row p-2 justify-between cursor-pointer'"
                     @else
                         class = "bg-gray-400 rounded-md p-1 text-white text-left
-                        text-2xl font-bold text-white flex flex-wrap
+                        text-2xl font-bold text-white flex flex-wrap mt-4
                         flex-row p-2 justify-between"
                     @endif
                     >

@@ -17,7 +17,7 @@
                     @if(isset($book->publisher))
                       • Published by
                       <span class = "text-blue-500 my-4">
-                        <a href = "">{{$book->publisher->name}}</a>
+                        <a href = "{{route('books_store.publisher-show', $book->publisher)}}">{{$book->publisher->name}}</a>
                       </span>
                     @endif
                   </p>
@@ -156,10 +156,10 @@
                     <div>
                       <div class = "flex flex-row mt-16 justify-center mb-6">
                         <h2 class = "text-2xl font-bold text-gray mr-6 ">Similar Content</h2>
-                        <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
+                        {{-- <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer">
                             <img src="{{ url('storage/project_images/right_arrow.png')}}"
                             alt = "Right Arrow" class="w-4">
-                        </div>
+                        </div> --}}
                       </div>
                       <div>
                         @foreach($related_books_by_subgenders as $book_related)
