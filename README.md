@@ -68,4 +68,8 @@ The platform also make use from the next packages for its purpose:
 
 ## Database Schema
 
+Visual representation from migrations
+
 ![Imgur](https://i.imgur.com/2uNnZTo.png)
+
+Work in Progress...
