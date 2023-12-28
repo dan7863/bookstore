@@ -1,6 +1,6 @@
 ## BookStore Project 📚📕📗📘
 
-### Bookstore is a platform where users can upload, interact, buy and sell any book they want. 
+### Bookstore is a platform where users can upload, interact, buy and sell any (.epub) book they want. 
 
 <p>Based on Google Play Books, Bookstore allows to interact with a book in many ways:
     
