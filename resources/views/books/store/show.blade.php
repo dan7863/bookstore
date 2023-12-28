@@ -66,7 +66,7 @@
                   </a>
                 @else
                   <a class="mt-6 bg-blue-400 mt-4 hover:bg-blue-500
-                  text-white font-bold py-2 px-4 border rounded" href = "#">
+                  text-white font-bold py-2 px-4 border rounded" href = "{{route('admin.books.read', $book)}}">
                     Read Book
                   </a>
                 @endif
