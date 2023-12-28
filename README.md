@@ -47,22 +47,22 @@ The platform also make use from the next packages for its purpose:
 
 <ul>
     <li>
-        *Laravel Jetstream* (Startet kit for Laravel that includes login, registration, email verification, two-factor authentication, session management and more.)
+        <b>Laravel Jetstream</b> (Startet kit for Laravel that includes login, registration, email verification, two-factor authentication, session management and more.)
     </li>
     <li>
-        *Stripe* (Online and in-person payment processing and financial solutions for businesses of all sizes.)
+        <b>Stripe</b> (Online and in-person payment processing and financial solutions for businesses of all sizes.)
     </li>
     <li>
-        *Laravel Spatie Permissions* (to manage user permissions and roles in a database)
+        <b>Laravel Spatie Permissions</b> (to manage user permissions and roles in a database)
     </li>
      <li>
-        *Laravel Collective* (Set of components that provides additional functionality for forms.)
+        <b>Laravel Collective</b> (Set of components that provides additional functionality for forms.)
     </li>
     <li>
-        *Php Ebook* (to read metadata and extract covers from eBooks, comics and audiobooks.)
+        <b>Php Ebook</b> (to read metadata and extract covers from eBooks, comics and audiobooks.)
     </li>
     <li>
-        *EpubJS* (Library for rendering ePub documents in the browser, across many devices.)
+        <b>EpubJS</b> (Library for rendering ePub documents in the browser, across many devices.)
     </li>
 </ul>
 
