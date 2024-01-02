@@ -72,4 +72,8 @@ Visual representation from migrations
 
 ![Imgur](https://i.imgur.com/2uNnZTo.png)
 
+## Video
+
+https://www.youtube.com/watch?v=5OFdkz6hSQ8
+
 Work in Progress...
