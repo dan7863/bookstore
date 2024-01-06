@@ -1,4 +1,4 @@
-<div class="bg-white mx-auto max-w-2xl px-4 py-16 pb-2 sm:px-6 lg:max-w-7xl lg:px-8">
+<div class="bg-white mx-auto px-4 py-16 pb-2 sm:px-6 lg:px-8 w-100">
     <div class="relative">
         <div class="absolute flex items-center ml-2 h-full">
         <svg class="w-4 h-4 fill-current text-primary-gray-dark"
@@ -18,6 +18,19 @@
         </div>
         <input type="text" placeholder="Search through thousands of books..."
         class="px-8 py-3 w-full rounded-md bg-gray-100 border-transparent
-        focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+        focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" wire:model.live = "search">
+      
     </div>
+    <ul class="bg-white border border-gray-100 w-full relative">
+        @if(!empty($books_search))
+            @foreach($books_search as $book)
+                <a href = "{{route('books_store.show', $book)}}">
+                    <li class="pl-8 pr-2 py-1 border-b-2 border-gray-100
+                    relative cursor-pointer hover:bg-yellow-50 hover:text-gray-900 p-6">
+                        <p>{{$book->title}}</p>
+                    </li>
+                </a>
+            @endforeach
+        @endif
+    </ul>
 </div>

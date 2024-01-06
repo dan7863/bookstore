@@ -1,3 +1,6 @@
+@php
+  $comments = $book->comments;
+@endphp
 <x-app-layout>
     <div class="bg-white">
         <div class="mx-auto grid max-w-2xl grid-cols-1
@@ -24,9 +27,9 @@
                 <dl class="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
                   <div class="border-t border-gray-200 pt-4 text-center">
                     <dt class="font-medium text-gray-900">
-                      {{number_format($book->comments->avg('stars'), 2, '.', '')}} ★
+                      {{number_format($comments->avg('stars'), 2, '.', '')}} ★
                     </dt>
-                    <dd class="mt-2 text-sm text-gray-500">{{$book->comments->count()}} Opinions</dd>
+                    <dd class="mt-2 text-sm text-gray-500">{{$comments->count()}} Opinions</dd>
                   </div>
                   <div class="border-t border-gray-200 pt-4 flex flex-col items-center">
                     <dt class="font-medium text-gray-900">
@@ -77,7 +80,7 @@
               <div class = "grid grid-cols-1 lg:grid-cols-4">
                 <div class = "lg:col-span-2">
                   <!-- About This -->
-                  <div class = "flex flex-row mt-12" x-data="{ 'showModal': false}">
+                  <div class = "flex flex-row mt-12" x-cloak x-data="{ 'showModal': false}">
                     <h2 class = "text-2xl font-bold text-gray mr-6">About This Book</h2>
                     <div class="inline-block hover:bg-gray-200 rounded-full p-2 cursor-pointer" 
                     x-on:click="showModal = true">
@@ -124,7 +127,6 @@
                       {{\Illuminate\Support\Str::limit($book->description->description, 500, $end='...') }}
                     </p>
                   @endif
-
                   @include('partials.books.book-subgenders', ['subgenders' => $book->subgenders])
                   @include('partials.rates-and-opinions', ['book' => $book])
                 </div>

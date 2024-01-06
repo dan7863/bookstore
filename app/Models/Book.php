@@ -92,6 +92,7 @@ class Book extends Model
         ->where('id', '<>', $this->id)
         ->has('book_purchase_detail')
         ->with('book_purchase_detail')
+        ->with('image')
         ->where(function ($query) {
             // Check for books that have purchase orders
             $query->whereHas('purchase_orders', function ($subquery) {
@@ -126,6 +127,16 @@ class Book extends Model
             ->orWhereDoesntHave('purchase_orders');
         })
         ->where('id', '<>', $this->id)
+        ->with('book_purchase_detail')
+        ->with('image')
+        ->latest('id')
+        ->take(3)
+        ->get();
+    }
+
+    public static function get_related_books($search) {
+        return Book::where('title', 'LIKE', '%'.$search.'%')
+        ->where('user_id', '<>', auth()->id())
         ->with('book_purchase_detail')
         ->latest('id')
         ->take(3)

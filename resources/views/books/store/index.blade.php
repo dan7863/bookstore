@@ -14,7 +14,7 @@
   ```
 -->
 
-@include('books.store.general-filter')
+@livewire('general-filter')
 
 @if(count($most_purchases_per_month) > 0)
   @include('partials.books.block', ['title' => 'Most Purchases per Month', 'books' => $most_purchases_per_month])

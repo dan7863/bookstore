@@ -1,4 +1,4 @@
-<div x-data="{ openTab: 0 }">
+<div>
     <div class = "flex flex-wrap flex-row justify-center mt-8">
         @foreach($alphabet as $char_alphabet)
             <div @if(in_array($char_alphabet, $gender_alphabet)) wire:click="$set('char', '{{ $char_alphabet }}')"
@@ -21,15 +21,16 @@
         <div x-cloak>
             @if(count($genders) > 0)
                 @foreach($genders as $index => $gender)
-                <div>
-                    <div  x-on:click="openTab = (openTab === {{$index+1}}) ? 0 : 1"
+                <div x-data="{ openTab{{$index+1}}: 0 }">
+                    <div x-on:click="openTab{{$index+1}} = openTab{{$index+1}} ? 0 : 1"
                     @if(count($gender->subgenders) > 0)
-                        :class="openTab ? 'bg-gray-900 rounded-t-md mt-4 rounded-b-none p-1 text-white text-left text-2xl font-bold text-white flex flex-wrap flex-row p-2 justify-between cursor-pointer' : 'bg-gray-900 rounded-md p-1 text-white text-left text-2xl font-bold text-white flex flex-wrap flex-row p-2 justify-between cursor-pointer'"
+                        :class="openTab{{$index+1}} ? 'bg-gray-900 rounded-t-md mt-4 rounded-b-none p-1 text-white text-left text-2xl font-bold text-white flex flex-wrap flex-row p-2 justify-between cursor-pointer' : 'bg-gray-900 rounded-md p-1 text-white text-left text-2xl font-bold text-white flex flex-wrap flex-row p-2 justify-between cursor-pointer'"
                     @else
                         class = "bg-gray-400 rounded-md p-1 text-white text-left
                         text-2xl font-bold text-white flex flex-wrap mt-4
                         flex-row p-2 justify-between"
                     @endif
+                    style = "margin-top: 2%;"
                     >
                         <div>
                             <h1>{{$gender->name}}</h1>
@@ -39,7 +40,7 @@
                         </div>
                     </div>
                     @if(count($gender->subgenders) > 0)
-                        <div x-show="openTab === {{$index+1}}"
+                        <div x-show="openTab{{$index+1}}"
                         class = "border-solid border-t-0 border p-1">
                                 <ul class = "flex flex-wrap flex-row mt-4 m-8">
                                     @foreach($gender->subgenders as $subgender)

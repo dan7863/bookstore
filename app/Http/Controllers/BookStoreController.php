@@ -80,11 +80,13 @@ class BookStoreController extends Controller
     public function show(Book $book)
     {
         $this->authorize('available', $book);
-        
         $related_books_by_author = $book->get_related_books_by_author();
         $related_books_by_subgenders = $book->get_related_books_by_subgenders();
         $own_book = $book->user->id == auth()->id();
         $bookId = $book->id;
+        $current_comment = Comment::where('commentable_id', $book->id)
+        ->where('commentable_type', Book::class)
+        ->where('user_id', auth()->id());
         $buyed_book = OrderLine::whereHas('purchase_orders', function ($query) use ($bookId) {
             $query->where('book_id', $bookId);
         })->where('buyer_id', auth()->id())->exists();
@@ -93,6 +95,7 @@ class BookStoreController extends Controller
             'related_books_by_author' => $related_books_by_author,
             'related_books_by_subgenders' => $related_books_by_subgenders,
             'buyed_book' => $buyed_book,
+            'current_comment' => $current_comment,
             'buying_status' => $own_book || $buyed_book ? false : true,
         ]);
     }

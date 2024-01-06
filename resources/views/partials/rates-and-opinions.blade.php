@@ -75,7 +75,7 @@
         @include('partials.comments', ['comment' => $comment])
     @endforeach
 
-    <div x-data="{ 'showModal': false}">
+    <div x-cloak x-data="{ 'showModal': false }">
         <div class = "mt-10 text-center">
             <a class = "text-blue-500 cursor-pointer" x-on:click="showModal = true">See All Opinions</a>
         </div>
@@ -114,7 +114,6 @@
   @endif
 
   
-
-  @if($buyed_book)
+  @if($buyed_book && !$current_comment)
     @include('partials.rate-element', ['book' => $book])
   @endif

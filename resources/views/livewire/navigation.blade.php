@@ -38,23 +38,24 @@
               <a href="/"
               class="bg-gray-800 text-white rounded-md
               px-3 py-2 text-sm font-medium
-              {{ request()->is('/') ? 'bg-gray-900' : 'bg-gray-800' }}"" aria-current="page">Library</a>
+              {{ request()->is('/') || request()->is('books/*') ? 'bg-gray-900' : 'bg-gray-800' }}"" aria-current="page">Library</a>
               <a href = "{{route('books_store.author-index')}}" class=" text-white rounded-md
               px-3 py-2 text-sm font-medium
-              {{ request()->is('authors') ? 'bg-gray-900' : 'bg-gray-800' }}"
+              {{ request()->is('authors') || request()->is('author/*') ? 'bg-gray-900' : 'bg-gray-800' }}"
               aria-current="page">Authors</a>
               <a href = "{{route('books_store.gender-index')}}"
               class="text-white rounded-md px-3 py-2 text-sm font-medium
-              {{ request()->is('genders') ? 'bg-gray-900' : 'bg-gray-800' }}"
+              {{ request()->is('genders') || request()->is('subgender/*') ? 'bg-gray-900' : 'bg-gray-800' }}"
               aria-current="page">Genders</a>
               <a href = "{{route('books_store.publisher-index')}}"
               class="text-white rounded-md px-3 py-2 text-sm font-medium
-              {{ request()->is('publishers') ? 'bg-gray-900' : 'bg-gray-800' }}"
+              {{ request()->is('publishers') || request()->is('publisher/*') ? 'bg-gray-900' : 'bg-gray-800' }}"
               aria-current="page">Publishers</a>
+              
             </div>
           </div>
-          
         </div>
+
         @auth
           <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <button type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -74,7 +75,7 @@
                   <img class="h-8 w-8 rounded-full" src="{{auth()->user()->profile_photo_url}}" alt="">
                 </button>
               </div>
-    
+            
               <!--
                 Dropdown menu, show/hide based on menu state.
     

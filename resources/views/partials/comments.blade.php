@@ -1,10 +1,17 @@
 <div class = "mt-10">
-    <div class = "flex">
-      <div>
-        <img class = "rounded-full w-8 h-8 mr-6"
-        src="{{$comment->user->profile_photo_url}}" alt = "{{$comment->user->name}}">
+    <div class = "flex justify-between">
+      <div class = "flex">
+        <div>
+          <img class = "rounded-full w-8 h-8 mr-6"
+          src="{{$comment->user->profile_photo_url}}" alt = "{{$comment->user->name}}">
+        </div>
+        <h2>{{$comment->user->name}} {{$comment->user_id == auth()->id() ? '(You)' : ''}}</h2>
       </div>
-      <h2>{{$comment->user->name}} {{$comment->user_id == auth()->id() ? '(You)' : ''}}</h2>
+      <div class = "text-2xl cursor-pointer">
+        @if($comment->user_id == auth()->id())
+          ⁝
+        @endif
+      </div>
     </div>
     <div class = "flex">
       @include('partials.starts', ['rate' => $comment->stars])
